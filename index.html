@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myers-Jung Type Estimator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Added Roboto font -->
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- START: Progress Bar HTML -->
+    <div id="progress-container">
+        <div id="progress-bar">
+            <span id="progress-text">0%</span>
+        </div>
+    </div>
+    <!-- END: Progress Bar HTML -->
+
+
+    <h1>Jungian Cognitive Function Estimator</h1>
+    <p>Please answer the following questions honestly based on your natural preferences. Rate the Likert scale questions from 1 (Strongly Disagree) to 7 (Strongly Agree).</p>
+
+    <form id="personalitySurvey">
+
+        <!-- Section 1: Likert Scale Questions (Container for Randomization) -->
+        <h2>Function Preferences (1=Strongly Disagree, 7=Strongly Agree)</h2>
+        <div id="likert-questions-container">
+            <!-- Likert questions 1-24 go here -->
+            <!-- Si -->
+            <div class="question-group" data-question-id="Si_Q1">
+                <p><strong>1. :</strong> I feel most comfortable and 'myself' when I am in environments or situations that feel familiar and rooted in my past experiences. </p>
+                <div class="likert-options" id="Si_Q1">
+                    <label><input type="radio" name="Si_Q1" value="1" required> <span class="likert-visual">1</span></label>
+                    <label><input type="radio" name="Si_Q1" value="2"> <span class="likert-visual">2</span></label>
+                    <label><input type="radio" name="Si_Q1" value="3"> <span class="likert-visual">3</span></label>
+                    <label><input type="radio" name="Si_Q1" value="4"> <span class="likert-visual">4</span></label>
+                    <label><input type="radio" name="Si_Q1" value="5"> <span class="likert-visual">5</span></label>
+                    <label><input type="radio" name="Si_Q1" value="6"> <span class="likert-visual">6</span></label>
+                    <label><input type="radio" name="Si_Q1" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="Si_Q2">
+                <p><strong>2. :</strong> I prefer to plan around the traditional or tried-and-true methods of doing things, as they have proven to be the most reliable.</p>
+                <div class="likert-options" id="Si_Q2">
+                     <label><input type="radio" name="Si_Q2" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Si_Q2" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Si_Q2" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Si_Q2" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Si_Q2" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Si_Q2" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Si_Q2" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+            <!-- Si Reverse -->
+            <div class="question-group" data-question-id="Si_Q3">
+                <p><strong>3. :</strong> I rarely think about how the things in a physical space match up with how I'm used to them.</p>
+                <div class="likert-options" id="Si_Q3">
+                     <label><input type="radio" name="Si_Q3" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Si_Q3" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Si_Q3" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Si_Q3" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Si_Q3" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Si_Q3" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Si_Q3" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+            <!-- Se -->
+             <div class="question-group" data-question-id="Se_Q1">
+                <p><strong>4. :</strong> I feel most alive and 'tuned in' when I'm actively noticing and responding to the sights, sounds, and movements in my immediate environment; I'm not likely to miss something right in front of me.</p>
+                <div class="likert-options" id="Se_Q1">
+                     <label><input type="radio" name="Se_Q1" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Se_Q1" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Se_Q1" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Se_Q1" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Se_Q1" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Se_Q1" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Se_Q1" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="Se_Q2">
+                <p><strong>5. :</strong> When I see an opportunity for a cool new experience (trying an activity, checking out a place, tasting food), my first instinct is usually to go for it and soak up all the excitement happening now.</p>
+                <div class="likert-options" id="Se_Q2">
+                     <label><input type="radio" name="Se_Q2" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Se_Q2" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Se_Q2" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Se_Q2" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Se_Q2" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Se_Q2" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Se_Q2" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <!-- Se Reverse -->
+            <div class="question-group" data-question-id="Se_Q3">
+                <p><strong>6. :</strong> I find that I am *very* often unaware of or miss things happening in my immediate surroundings because my mind is elsewhere.</p>
+                <div class="likert-options" id="Se_Q3">
+                     <label><input type="radio" name="Se_Q3" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Se_Q3" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Se_Q3" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Se_Q3" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Se_Q3" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Se_Q3" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Se_Q3" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+            <!-- Ni -->
+             <div class="question-group" data-question-id="Ni_Q1">
+                <p><strong>7. :</strong> It's very important for me to have a clear mental picture or feeling about the right path forward, even if it's just a gut sense about the future.</p>
+                <div class="likert-options" id="Ni_Q1">
+                     <label><input type="radio" name="Ni_Q1" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Ni_Q1" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Ni_Q1" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Ni_Q1" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Ni_Q1" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Ni_Q1" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Ni_Q1" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="Ni_Q2">
+                <p><strong>8. :</strong> I often arrive at conclusions that seem to come out of nowhere; I relate to “realizing” answers.</p>
+                <div class="likert-options" id="Ni_Q2">
+                     <label><input type="radio" name="Ni_Q2" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Ni_Q2" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Ni_Q2" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Ni_Q2" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Ni_Q2" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Ni_Q2" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Ni_Q2" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+            <!-- Ni Reverse -->
+            <div class="question-group" data-question-id="Ni_Q3">
+                <p><strong>9. :</strong> Honestly, I think focusing too much on 'deeper meanings' and future implications distracts from dealing with what's real and present.</p>
+                <div class="likert-options" id="Ni_Q3">
+                     <label><input type="radio" name="Ni_Q3" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Ni_Q3" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Ni_Q3" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Ni_Q3" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Ni_Q3" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Ni_Q3" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Ni_Q3" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <!-- Ne -->
+            <div class="question-group" data-question-id="Ne_Q1">
+                <p><strong>10. :</strong> I like having silly conversations where you discuss ideas with no real intention of carrying them out.</p>
+                 <div class="likert-options" id="Ne_Q1">
+                    <label><input type="radio" name="Ne_Q1" value="1" required> <span class="likert-visual">1</span></label>
+                    <label><input type="radio" name="Ne_Q1" value="2"> <span class="likert-visual">2</span></label>
+                    <label><input type="radio" name="Ne_Q1" value="3"> <span class="likert-visual">3</span></label>
+                    <label><input type="radio" name="Ne_Q1" value="4"> <span class="likert-visual">4</span></label>
+                    <label><input type="radio" name="Ne_Q1" value="5"> <span class="likert-visual">5</span></label>
+                    <label><input type="radio" name="Ne_Q1" value="6"> <span class="likert-visual">6</span></label>
+                    <label><input type="radio" name="Ne_Q1" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="Ne_Q2">
+                <p><strong>11. :</strong> I have a mind overflowing with interesting ideas, dreams, and fantasies I want to pursue.</p>
+                 <div class="likert-options" id="Ne_Q2">
+                     <label><input type="radio" name="Ne_Q2" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Ne_Q2" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Ne_Q2" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Ne_Q2" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Ne_Q2" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Ne_Q2" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Ne_Q2" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <!-- Ne Reverse -->
+            <div class="question-group" data-question-id="Ne_Q3">
+                <p><strong>12. :</strong> I don't naturally jump to a million different possibilities; my mind usually goes to the most obvious or practical option first.</p>
+                 <div class="likert-options" id="Ne_Q3">
+                     <label><input type="radio" name="Ne_Q3" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Ne_Q3" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Ne_Q3" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Ne_Q3" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Ne_Q3" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Ne_Q3" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Ne_Q3" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+            <!-- Ti -->
+            <div class="question-group" data-question-id="Ti_Q1">
+                <p><strong>13. :</strong> I feel a strong need to analyze information or systems until I understand their underlying logic and ensure that understanding is precise and internally consistent.</p>
+                 <div class="likert-options" id="Ti_Q1">
+                    <label><input type="radio" name="Ti_Q1" value="1" required> <span class="likert-visual">1</span></label>
+                    <label><input type="radio" name="Ti_Q1" value="2"> <span class="likert-visual">2</span></label>
+                    <label><input type="radio" name="Ti_Q1" value="3"> <span class="likert-visual">3</span></label>
+                    <label><input type="radio" name="Ti_Q1" value="4"> <span class="likert-visual">4</span></label>
+                    <label><input type="radio" name="Ti_Q1" value="5"> <span class="likert-visual">5</span></label>
+                    <label><input type="radio" name="Ti_Q1" value="6"> <span class="likert-visual">6</span></label>
+                    <label><input type="radio" name="Ti_Q1" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+            <div class="question-group" data-question-id="Ti_Q2">
+                <p><strong>14. :</strong> I tend to be interested in how things work on the inside, like how a computer program or a game is designed.</p>
+                 <div class="likert-options" id="Ti_Q2">
+                     <label><input type="radio" name="Ti_Q2" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Ti_Q2" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Ti_Q2" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Ti_Q2" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Ti_Q2" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Ti_Q2" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Ti_Q2" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <!-- Ti Reverse -->
+             <div class="question-group" data-question-id="Ti_Q3">
+                <p><strong>15. :</strong> You tend to lack certainty in your own logical conclusions.</p>
+                 <div class="likert-options" id="Ti_Q3">
+                     <label><input type="radio" name="Ti_Q3" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Ti_Q3" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Ti_Q3" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Ti_Q3" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Ti_Q3" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Ti_Q3" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Ti_Q3" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <!-- Te -->
+            <div class="question-group" data-question-id="Te_Q1">
+                <p><strong>16. :</strong> Setting realistic goals and achieving efficient, long-term, worthwhile outcomes is very important to me.</p>
+                 <div class="likert-options" id="Te_Q1">
+                    <label><input type="radio" name="Te_Q1" value="1" required> <span class="likert-visual">1</span></label>
+                    <label><input type="radio" name="Te_Q1" value="2"> <span class="likert-visual">2</span></label>
+                    <label><input type="radio" name="Te_Q1" value="3"> <span class="likert-visual">3</span></label>
+                    <label><input type="radio" name="Te_Q1" value="4"> <span class="likert-visual">4</span></label>
+                    <label><input type="radio" name="Te_Q1" value="5"> <span class="likert-visual">5</span></label>
+                    <label><input type="radio" name="Te_Q1" value="6"> <span class="likert-visual">6</span></label>
+                    <label><input type="radio" name="Te_Q1" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+            <div class="question-group" data-question-id="Te_Q2">
+                <p><strong>17. :</strong> I feel a strong need to organize my external environment and processes logically to ensure tasks are completed efficiently and effectively.</p>
+                 <div class="likert-options" id="Te_Q2">
+                     <label><input type="radio" name="Te_Q2" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Te_Q2" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Te_Q2" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Te_Q2" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Te_Q2" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Te_Q2" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Te_Q2" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <!-- Te Reverse -->
+            <div class="question-group" data-question-id="Te_Q3">
+                <p><strong>18. :</strong> I don't naturally think about efficiency or organization; I tend to just go with the flow and figure things out as I go.</p>
+                 <div class="likert-options" id="Te_Q3">
+                     <label><input type="radio" name="Te_Q3" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Te_Q3" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Te_Q3" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Te_Q3" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Te_Q3" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Te_Q3" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Te_Q3" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <!-- Fi -->
+            <div class="question-group" data-question-id="Fi_Q1">
+                <p><strong>19. :</strong> You know what you believe and you stand by them strongly, even when others try to convince you otherwise.</p>
+                 <div class="likert-options" id="Fi_Q1">
+                    <label><input type="radio" name="Fi_Q1" value="1" required> <span class="likert-visual">1</span></label>
+                    <label><input type="radio" name="Fi_Q1" value="2"> <span class="likert-visual">2</span></label>
+                    <label><input type="radio" name="Fi_Q1" value="3"> <span class="likert-visual">3</span></label>
+                    <label><input type="radio" name="Fi_Q1" value="4"> <span class="likert-visual">4</span></label>
+                    <label><input type="radio" name="Fi_Q1" value="5"> <span class="likert-visual">5</span></label>
+                    <label><input type="radio" name="Fi_Q1" value="6"> <span class="likert-visual">6</span></label>
+                    <label><input type="radio" name="Fi_Q1" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="Fi_Q2">
+                <p><strong>20. :</strong> I have good emotional awareness and do not overstep people's boundaries. </p>
+                 <div class="likert-options" id="Fi_Q2">
+                     <label><input type="radio" name="Fi_Q2" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Fi_Q2" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Fi_Q2" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Fi_Q2" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Fi_Q2" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Fi_Q2" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Fi_Q2" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <!-- Fi Reverse -->
+            <div class="question-group" data-question-id="Fi_Q3">
+                <p><strong>21. :</strong> I don't constantly check in with my feelings to make decisions; I usually rely more on logic or what seems practical.</p>
+                 <div class="likert-options" id="Fi_Q3">
+                     <label><input type="radio" name="Fi_Q3" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Fi_Q3" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Fi_Q3" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Fi_Q3" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Fi_Q3" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Fi_Q3" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Fi_Q3" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <!-- Fe -->
+            <div class="question-group" data-question-id="Fe_Q1">
+                <p><strong>22. :</strong> I'm good at noticing when someone in a group is feeling left out or upset, even if they're trying to hide it.</p>
+                 <div class="likert-options" id="Fe_Q1">
+                     <label><input type="radio" name="Fe_Q1" value="1" required> <span class="likert-visual">1</span></label>
+                     <label><input type="radio" name="Fe_Q1" value="2"> <span class="likert-visual">2</span></label>
+                     <label><input type="radio" name="Fe_Q1" value="3"> <span class="likert-visual">3</span></label>
+                     <label><input type="radio" name="Fe_Q1" value="4"> <span class="likert-visual">4</span></label>
+                     <label><input type="radio" name="Fe_Q1" value="5"> <span class="likert-visual">5</span></label>
+                     <label><input type="radio" name="Fe_Q1" value="6"> <span class="likert-visual">6</span></label>
+                     <label><input type="radio" name="Fe_Q1" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="Fe_Q2">
+                <p><strong>23. :</strong> I often try to make sure everyone in a group feels included and comfortable, especially if someone seems left out.</p>
+                 <div class="likert-options" id="Fe_Q2">
+                    <label><input type="radio" name="Fe_Q2" value="1" required> <span class="likert-visual">1</span></label>
+                    <label><input type="radio" name="Fe_Q2" value="2"> <span class="likert-visual">2</span></label>
+                    <label><input type="radio" name="Fe_Q2" value="3"> <span class="likert-visual">3</span></label>
+                    <label><input type="radio" name="Fe_Q2" value="4"> <span class="likert-visual">4</span></label>
+                    <label><input type="radio" name="Fe_Q2" value="5"> <span class="likert-visual">5</span></label>
+                    <label><input type="radio" name="Fe_Q2" value="6"> <span class="likert-visual">6</span></label>
+                    <label><input type="radio" name="Fe_Q2" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+             <!-- Fe Reverse -->
+            <div class="question-group" data-question-id="Fe_Q3">
+                <p><strong>24. :</strong> I don't automatically tune in to the moods of the group; I'm often more focused on my own thoughts and feelings.</p>
+                 <div class="likert-options" id="Fe_Q3">
+                    <label><input type="radio" name="Fe_Q3" value="1" required> <span class="likert-visual">1</span></label>
+                    <label><input type="radio" name="Fe_Q3" value="2"> <span class="likert-visual">2</span></label>
+                    <label><input type="radio" name="Fe_Q3" value="3"> <span class="likert-visual">3</span></label>
+                    <label><input type="radio" name="Fe_Q3" value="4"> <span class="likert-visual">4</span></label>
+                    <label><input type="radio" name="Fe_Q3" value="5"> <span class="likert-visual">5</span></label>
+                    <label><input type="radio" name="Fe_Q3" value="6"> <span class="likert-visual">6</span></label>
+                    <label><input type="radio" name="Fe_Q3" value="7"> <span class="likert-visual">7</span></label>
+                </div>
+            </div>
+        </div> <!-- End of likert-questions-container -->
+
+
+        <!-- Section 2: Attitude Determining (Binary) -->
+        <h2>Attitude Preferences (Choose one option per pair)</h2>
+        <!-- Attitude Fieldsets 25-36 go here (as before) -->
+        <fieldset>
+            <!-- LEGEND REMOVED -->
+            <div class="question-group" data-question-id="TiTe_Q1">
+                <p><strong>25. :</strong> When learning something new, which is more important?</p>
+                <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Understanding the underlying principles and why it works.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="TiTe_Q1" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="TiTe_Q1" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">Understanding how to use it effectively and achieve a specific goal.</span>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="TiTe_Q2">
+                <p><strong>26. :</strong> Which do you prioritize more?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Making sure my understanding is precise and logically consistent, even if it takes more time. The source matters less than its logical soundness .</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="TiTe_Q2" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="TiTe_Q2" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">Getting things done efficiently and achieving the objective. Using established methods or trusted sources helps.</span>
+                </div>
+            </div>
+            <div class="question-group" data-question-id="TiTe_Q3">
+                <p><strong>27. :</strong> Where does your strength lie more?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Analyzing systems, finding logical inconsistencies, and building precise internal models .</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="TiTe_Q3" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="TiTe_Q3" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">Organizing resources, structuring processes, and implementing plans to meet goals effectively in the real world.</span>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+             <!-- LEGEND REMOVED -->
+             <div class="question-group" data-question-id="FiFe_Q1">
+                <p><strong>28. :</strong> When you hear a friend who's upset, which statement BEST describes your initial reaction?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">I consider how I would feel in that situation and what would be important to me.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="FiFe_Q1" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="FiFe_Q1" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">I try to understand what they might be going through and how they might want to be supported.</span>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="FiFe_Q2">
+                <p><strong>29. :</strong> Which question is more guiding for your decisions?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Is this decision aligned with my personal values and what feels genuinely right to me? I need to be true to myself.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="FiFe_Q2" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="FiFe_Q2" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">How will this decision impact the feelings and well-being of everyone involved? I want to minimize conflict and maintain positive relationships.</span>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="FiFe_Q3">
+                <p><strong>30. :</strong> Where does your sense of right and wrong primarily come from?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Deep within, based on what feels personally authentic and true to my core values, even if others don't understand.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="FiFe_Q3" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="FiFe_Q3" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">Strongly influenced by the impact on group harmony and considers shared social values or what's appropriate for maintaining positive connections.</span>
+                </div>
+            </div>
+        </fieldset>
+
+         <fieldset>
+             <!-- LEGEND REMOVED -->
+             <div class="question-group" data-question-id="SiSe_Q1">
+                <p><strong>31. :</strong> How do you typically process your current situation?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">You vividly compare and contrast your current situation with what you've experienced in the past or with what you consider to be normal.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="SiSe_Q1" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="SiSe_Q1" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">You pay attention to what's going on around you in the physical world right now.</span>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="SiSe_Q2">
+                <p><strong>32. :</strong> What context is more important?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Historical context is important—not only my own personal past, but also traditions, procedures, and laws.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="SiSe_Q2" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="SiSe_Q2" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">I focus on observing the concrete facts and details of the immediate situation as they are, without much interpretation or looking for hidden meanings.</span>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="SiSe_Q3">
+                <p><strong>33. :</strong> Which description fits you better?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">There's a precision to my life, and I notice inconsistencies and details. Rules and precedents exist for a reason.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="SiSe_Q3" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="SiSe_Q3" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">I prefer engaging directly with the present moment and responding to immediate opportunities.</span>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+             <!-- LEGEND REMOVED -->
+             <div class="question-group" data-question-id="NiNe_Q1">
+                <p><strong>34. :</strong> How do you typically process information?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">I tend to focus inward to grasp the underlying meaning or future implications, often arriving at a single, core insight or vision.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="NiNe_Q1" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="NiNe_Q1" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">I tend to explore outwards, generating numerous possibilities, connections, and potential scenarios based on what I observe.</span>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="NiNe_Q2">
+                <p><strong>35. :</strong> How do insights typically come to you?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Insights often emerge suddenly, like an "aha!" moment, after a period of unconscious processing, revealing a deeper pattern or future path.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="NiNe_Q2" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="NiNe_Q2" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">My mind actively plays with ideas, explores links between seemingly unrelated things, and brainstorms multiple 'what-ifs' about the world around me.</span>
+                </div>
+            </div>
+             <div class="question-group" data-question-id="NiNe_Q3">
+                <p><strong>36. :</strong> What is your focus when generating ideas?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">I'm focused on my goals or dreams and look inward for ideas to make that future happen.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="NiNe_Q3" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="NiNe_Q3" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">I take in new facts from the outside world and connect the dots in imaginative or innovative ways to create new ideas and learning opportunities.</span>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Section 3: Axis Ordinality (Binary) -->
+        <h2>General Preferences (Choose one option per pair)</h2>
+         <!-- Axis Fieldsets 37-40 go here (as before) -->
+         <fieldset>
+             <legend>Decision Making Axis</legend>
+            <div class="question-group" data-question-id="Ti_Fe">
+                <p><strong>37. :</strong> When making decisions, what is your primary guide?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Objective truth and logical analysis, regardless of how others might feel about it.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="Ti_Fe" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="Ti_Fe" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">The impact on relationships and the emotional well-being of the group.</span>
+                </div>
+            </div>
+         </fieldset>
+         <fieldset>
+             <legend>Success Definition Axis</legend>
+            <div class="question-group" data-question-id="Fi_Te">
+                <p><strong>38. :</strong> What does success mean more to you?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Staying true to myself and acting in accordance with my core principles and what feels right internally.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="Fi_Te" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="Fi_Te" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">Effectively organizing resources, meeting objectives, and achieving tangible, demonstrable outcomes in the external world.</span>
+                </div>
+            </div>
+         </fieldset>
+          <fieldset>
+             <legend>Information Processing Axis</legend>
+            <div class="question-group" data-question-id="Si_Ne">
+                <p><strong>39. :</strong> Where do you feel most comfortable or energized?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Working with concrete details, established procedures, and information grounded in past reality.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="Si_Ne" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="Si_Ne" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">Exploring abstract connections, future potentials, and imaginative 'what-if' scenarios.</span>
+                </div>
+            </div>
+         </fieldset>
+          <fieldset>
+             <legend>Action Orientation Axis</legend>
+            <div class="question-group" data-question-id="Ni_Se">
+                <p><strong>40. :</strong> How do you prefer to approach tasks?</p>
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Spend time thinking about the overall goal, the potential challenges, and planning out the entire process before you start taking action.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="Ni_Se" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="Ni_Se" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">Dive right in, start working on the first steps, and figure things out as you go along.</span>
+                </div>
+            </div>
+         </fieldset>
+
+        <!-- NEW: Section 4: Temperament Sorting -->
+        <h2>Temperament Preferences (Sort BY CLICKING, from MOST to LEAST like you)</h2>
+
+        <fieldset class="temperament-sorter" data-set-id="1" data-question-id="temperament_set1">
+            <legend>Core Values and Motivations</legend>
+            <div class="question-group"> <!-- Keep class for consistency, but treat fieldset as the question -->
+                <p><strong>41. :</strong> Below are statements describing different priorities people may have in life and work. Please sort them in order from MOST important to LEAST important to you personally by clicking on the descriptions below.</p>
+
+                <div class="sort-container">
+                    <div class="sorted-area">
+                        <div class="sorted-slot" data-rank="1"><span class="slot-label">MOST</span></div>
+                        <div class="sorted-slot" data-rank="2"><span class="slot-label">2nd</span></div>
+                        <div class="sorted-slot" data-rank="3"><span class="slot-label">3rd</span></div>
+                        <div class="sorted-slot" data-rank="4"><span class="slot-label">LEAST</span></div>
+                    </div>
+                    <div class="unsorted-area">
+                        <div class="sortable-item" data-temperament="SP">Having the freedom to act spontaneously and make an immediate impact in the moment, experiencing variety and new opportunities.</div>
+                        <div class="sortable-item" data-temperament="SJ">Maintaining stability and order, fulfilling responsibilities and duties, and upholding traditions and established procedures for the good of the group or community.</div>
+                        <div class="sortable-item" data-temperament="NT">Acquiring knowledge and expertise, understanding complex systems and ideas, and achieving competence and mastery in areas of interest.</div>
+                        <div class="sortable-item" data-temperament="NF">Finding meaning and purpose in what I do, fostering harmonious and authentic relationships, and acting in alignment with my personal values and ethics.</div>
+                    </div>
+                    <button type="button" class="reset-sort-button">Reset This Question</button>
+                    <!-- Hidden input to store the sorted order -->
+                    <input type="hidden" name="temperament_set1_order" id="temperament_set1_order" value="">
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="temperament-sorter" data-set-id="2" data-question-id="temperament_set2">
+            <legend>Approach to Tasks and Problem Solving</legend>
+            <div class="question-group"> <!-- Keep class for consistency, but treat fieldset as the question -->
+                <p><strong>42. :</strong> Imagine you are faced with a challenging task or problem. Below are different approaches someone might take. Please sort them in order from the approach you would be MOST likely to take to the approach you would be LEAST likely to take by clicking on the descriptions below.</p>
+
+                <div class="sort-container">
+                    <div class="sorted-area">
+                        <div class="sorted-slot" data-rank="1"><span class="slot-label">MOST</span></div>
+                        <div class="sorted-slot" data-rank="2"><span class="slot-label">2nd</span></div>
+                        <div class="sorted-slot" data-rank="3"><span class="slot-label">3rd</span></div>
+                        <div class="sorted-slot" data-rank="4"><span class="slot-label">LEAST</span></div>
+                    </div>
+                     <div class="unsorted-area">
+                        <div class="sortable-item" data-temperament="SP">Using practical, hands-on approaches, adapting quickly to changing situations, and finding creative and varied solutions in the moment as needed.</div>
+                        <div class="sortable-item" data-temperament="SJ">Organizing and structuring the task effectively, following established procedures and best practices, and paying close attention to details and accuracy to ensure things are done right.</div>
+                        <div class="sortable-item" data-temperament="NT">Analyzing the situation strategically and conceptually, developing logical and efficient systems or plans to address the problem, and focusing on understanding the underlying principles at play.</div>
+                        <div class="sortable-item" data-temperament="NF">Considering the impact on people and relationships, focusing on ethical and value-driven solutions, understanding and addressing the needs and feelings of those involved, and fostering collaboration to find a solution that benefits everyone.</div>
+                    </div>
+                    <button type="button" class="reset-sort-button">Reset This Question</button>
+                     <!-- Hidden input to store the sorted order -->
+                    <input type="hidden" name="temperament_set2_order" id="temperament_set2_order" value="">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Section 5: I/E Questions (Binary) - Renumbered -->
+        <h2>Overall Orientation</h2>
+         <fieldset>
+             <!-- LEGEND REMOVED -->
+            <div class="question-group" data-question-id="I_E">
+                <p><strong>43. :</strong> In social situations, do you more often:</p> <!-- Renumbered -->
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Prefer to wait for others to initiate or be introduced, and engage more when approached.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="I_E" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="I_E" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">Take the lead in initiating conversations, introducing people, and getting things going.</span>
+                </div>
+            </div>
+            <!-- NEW I_E Question 2 -->
+            <div class="question-group" data-question-id="I_E2">
+                <p><strong>44. :</strong> When exploring a new idea, I prefer to:</p> <!-- Renumbered -->
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Reflecting on it internally, considering different angles before formulating a response or sharing.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="I_E2" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="I_E2" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">Discussing it openly and dynamically, thinking out loud and reacting to others' input.</span>
+                </div>
+            </div>
+            <!-- NEW I_E Question 3 -->
+            <div class="question-group" data-question-id="I_E3">
+                <p><strong>45. :</strong> When you want to truly grasp a new concept:</p> <!-- Renumbered -->
+                 <div class="binary-choice-pair">
+                    <span class="binary-text binary-text-left">Exploring it through reading, research, and individual reflection.</span>
+                    <label class="binary-option binary-option-1">
+                        <input type="radio" name="I_E3" value="1" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <label class="binary-option binary-option-2">
+                        <input type="radio" name="I_E3" value="2" required>
+                        <span class="binary-visual"></span>
+                    </label>
+                    <span class="binary-text binary-text-right">Engaging with it through direct experience and active participation.</span>
+                </div>
+            </div>
+         </fieldset>
+
+        <button type="submit">Calculate My Type</button>
+    </form>
+
+    <div id="results">
+        <h2>Results</h2>
+        <p>Your estimated top types will appear here after submitting the survey.</p>
+        <!-- Results will be injected here by JavaScript -->
+    </div>
+
+    <!-- Randomization and Progress Bar Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('likert-questions-container');
+            if (container) {
+                const likertQuestions = Array.from(container.querySelectorAll('.question-group'));
+
+                if (likertQuestions.length > 0) {
+                    for (let i = likertQuestions.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [likertQuestions[i], likertQuestions[j]] = [likertQuestions[j], likertQuestions[i]];
+                    }
+                    container.innerHTML = ''; // Clear the container
+                    likertQuestions.forEach(question => container.appendChild(question));
+                    // Re-number visually
+                    const allQuestionsInContainer = container.querySelectorAll('.question-group p strong');
+                    allQuestionsInContainer.forEach((strongTag, index) => {
+                         strongTag.textContent = `${index + 1}. :`;
+                    });
+                } else {
+                     console.warn("No Likert question groups found in the container to randomize.");
+                }
+            } else {
+                console.error("Likert questions container with ID 'likert-questions-container' not found.");
+            }
+
+             // --- Temperament Sorter Logic (as before) ---
+            const sorterFieldsets = document.querySelectorAll('.temperament-sorter');
+            sorterFieldsets.forEach(fieldset => {
+                const setId = fieldset.dataset.setId;
+                const unsortedArea = fieldset.querySelector('.unsorted-area');
+                const sortedArea = fieldset.querySelector('.sorted-area');
+                const sortableItems = fieldset.querySelectorAll('.sortable-item');
+                const sortedSlots = fieldset.querySelectorAll('.sorted-slot');
+                const resetButton = fieldset.querySelector('.reset-sort-button');
+                const hiddenInput = fieldset.querySelector(`#temperament_set${setId}_order`);
+
+                function updateHiddenInput() {
+                    const sortedTemperaments = [];
+                    sortedSlots.forEach(slot => {
+                        const placedItem = slot.querySelector('.sortable-item');
+                        if (placedItem) {
+                            sortedTemperaments.push(placedItem.dataset.temperament);
+                        }
+                    });
+                    hiddenInput.value = sortedTemperaments.join(',');
+                    console.log(`Set ${setId} order: ${hiddenInput.value}`);
+                     // Trigger change event for progress bar update AND autoscroll
+                    hiddenInput.dispatchEvent(new Event('change', { bubbles: true })); // Make sure it bubbles
+                }
+
+                // ... (event listeners for sortableItems and resetButton remain the same) ...
+                 sortableItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        if (item.classList.contains('placed')) return;
+                        let targetSlot = null;
+                        for (const slot of sortedSlots) {
+                            // Check if the slot is empty (doesn't contain a placed item)
+                            if (!slot.querySelector('.sortable-item.placed-in-slot')) {
+                                targetSlot = slot;
+                                break;
+                            }
+                        }
+
+                        if (targetSlot) {
+                            const clonedItem = item.cloneNode(true);
+                            clonedItem.classList.add('placed-in-slot');
+                            // Remove placeholder label *only if* it exists and is the only child
+                            const potentialLabel = targetSlot.querySelector('.slot-label');
+                            if (potentialLabel && targetSlot.children.length === 1 && targetSlot.firstChild === potentialLabel) {
+                                 targetSlot.innerHTML = ''; // Clear placeholder before adding
+                            }
+                            targetSlot.appendChild(clonedItem); // Add the item
+                            item.classList.add('placed'); // Mark original as placed
+                            updateHiddenInput(); // Update hidden value and trigger change
+                        } else {
+                            console.log("All slots filled for set " + setId);
+                        }
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    sortedSlots.forEach(slot => {
+                        slot.innerHTML = ''; // Clear content
+                        const rank = slot.dataset.rank;
+                        const labelSpan = document.createElement('span');
+                        labelSpan.classList.add('slot-label');
+                        if (rank === '1') labelSpan.textContent = 'MOST';
+                        else if (rank === '4') labelSpan.textContent = 'LEAST';
+                        else labelSpan.textContent = `${rank}${rank === '2' ? 'nd' : 'rd'}`;
+                        slot.appendChild(labelSpan); // Re-add placeholder label
+                    });
+                    sortableItems.forEach(item => {
+                        item.classList.remove('placed'); // Unmark originals
+                    });
+                    hiddenInput.value = ''; // Clear hidden value
+                     // Trigger change event for progress bar update AND autoscroll logic
+                    hiddenInput.dispatchEvent(new Event('change', { bubbles: true })); // Make sure it bubbles
+                    console.log(`Set ${setId} reset.`);
+                });
+
+            });
+
+
+            // --- Progress Bar & Autoscroll Logic ---
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const form = document.getElementById('personalitySurvey');
+            // Get all question containers in their current DOM order
+            const allQuestionElements = Array.from(form.querySelectorAll('.question-group[data-question-id], fieldset.temperament-sorter[data-question-id]'));
+            const totalQuestions = allQuestionElements.length;
+
+            // --- Helper function to check if a question element is answered ---
+            function isQuestionAnswered(element) {
+                if (!element) return false;
+                if (element.classList.contains('temperament-sorter')) {
+                    const hiddenInput = element.querySelector('input[type="hidden"]');
+                    return hiddenInput && hiddenInput.value && hiddenInput.value.split(',').length === 4;
+                } else {
+                    // Check for radio buttons within this question group
+                    return !!element.querySelector('input[type="radio"]:checked');
+                }
+            }
+
+             // --- Function to find the next unanswered question element ---
+             function findNextUnansweredQuestion(currentElement) {
+                const currentIndex = allQuestionElements.indexOf(currentElement);
+                if (currentIndex === -1) return null; // Element not found in our list
+
+                for (let i = currentIndex + 1; i < allQuestionElements.length; i++) {
+                    if (!isQuestionAnswered(allQuestionElements[i])) {
+                        return allQuestionElements[i]; // Found the next unanswered one
+                    }
+                }
+                return null; // No more unanswered questions found after this one
+             }
+
+            // --- Main function to update progress and handle scrolling ---
+            function handleFormChange(event) {
+                // --- Update Progress Bar (existing logic) ---
+                let answeredQuestions = 0;
+                allQuestionElements.forEach(el => {
+                    if (isQuestionAnswered(el)) {
+                         answeredQuestions++;
+                    }
+                });
+
+                const progressPercentage = totalQuestions > 0 ? Math.ceil((answeredQuestions / totalQuestions) * 100) : 0;
+                progressBar.style.width = `${progressPercentage+2}%`; //small visual hack to make it look better
+                progressText.textContent = `${progressPercentage}%`;
+
+                // --- Autoscroll Logic ---
+                // Find the question container that the changed element belongs to
+                const changedElement = event.target;
+                const currentQuestionContainer = changedElement.closest('.question-group[data-question-id], fieldset.temperament-sorter[data-question-id]');
+
+                if (!currentQuestionContainer) return; // Change didn't happen within a known question
+
+                // Only scroll if the question *just answered* is now complete
+                if (isQuestionAnswered(currentQuestionContainer)) {
+                    const nextQuestion = findNextUnansweredQuestion(currentQuestionContainer);
+                    if (nextQuestion) {
+                        // Use setTimeout to allow the browser slight breathing room, can help prevent race conditions
+                        setTimeout(() => {
+                             // Scroll the *next* unanswered question into view, centering it in the available space
+                            nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 50); // Small delay like 50ms
+                    }
+                }
+            }
+
+            // Listen for changes on the form (catches radio buttons and triggered changes on hidden inputs)
+            form.addEventListener('change', handleFormChange);
+
+            // Initial calculation in case the browser autofills some fields
+            // We run the progress update part, but not the scroll part initially
+             let initialAnswered = 0;
+             allQuestionElements.forEach(el => {
+                 if (isQuestionAnswered(el)) {
+                     initialAnswered++;
+                 }
+             });
+             const initialProgress = totalQuestions > 0 ? Math.round((initialAnswered / totalQuestions) * 100) : 0;
+             progressBar.style.width = `${initialProgress}%`;
+             progressText.textContent = `${initialProgress}%`;
+
+        }); // End DOMContentLoaded
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
