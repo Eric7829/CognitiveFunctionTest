@@ -12,7 +12,7 @@ This project, developed for my Grade 11 Introduction to Anthropology, Psychology
     *   **Function Preferences:** Rate your agreement with statements on a 1-7 Likert scale.
     *   **Attitude Preferences:** Choose the option in each pair that best reflects your preference regarding the introverted or extraverted expression of certain functions.
     *   **General Preferences (Axis):** Choose the option in each pair that best reflects your general preference on core cognitive "axes" (like Thinking vs. Feeling).
-    *   **Temperament Preferences:** Click and drag (or click to sort) the descriptions to rank them from MOST to LEAST like you.
+    *   **Temperament Preferences:** Click to sort the descriptions to rank them from MOST to LEAST like you.
     *   **Overall Orientation:** Choose the option in each pair that best reflects your general Introversion/Extraversion preference.
 4.  As you answer questions, the progress bar at the top will update.
 5.  Once all questions are answered, click the "Calculate My Type" button.
