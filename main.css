@@ -1,0 +1,1404 @@
+
+
+html {
+    scroll-behavior: smooth; /* Make all programmatic scrolling smooth */
+    /* Adjusted padding-top to accommodate the fixed progress bar */
+    scroll-padding-top: 100px; /* Adjusted for potentially taller sticky element/margin */
+}
+
+/* --- Cosmic Theme CSS Custom Properties --- */
+:root {
+    /* Backgrounds */
+    --bg-deep-space: #070a18; /* Very dark blue/purple, base for body */
+    --bg-nebula-soft: #10142c; /* Slightly lighter for containers */
+    --bg-interactive-hover: rgba(77, 136, 255, 0.1); /* Subtle hover background */
+
+    /* Text */
+    --text-primary: #e0e5f0; /* Light cool grey/off-white */
+    --text-secondary: #a8b2d1; /* Softer grey for less emphasis */
+    --text-heading: #d9def0; /* Bright for headings */
+    --text-link: #61dafb; /* Bright cyan for links */
+    --text-link-hover: #9efbff;
+
+    /* Accents & Borders */
+    --accent-primary: #61dafb; /* Bright "electric" blue/cyan */
+    --accent-secondary: #9f79ff; /* Cosmic violet/purple */
+    --accent-glow: rgba(97, 218, 251, 0.5); /* Glow for primary accent */
+    --border-color: rgba(97, 218, 251, 0.3); /* Subtle border color */
+    --border-color-medium: rgba(159, 121, 255, 0.4);
+
+    /* Function Node Base Colors (can be gradients or include textures later) */
+    --fn-ni: #6A0DAD; /* Deep Violet (Pulsar) */
+    --fn-ne: #FF6AC1; /* Vibrant Pink part of Supernova (proxy for multi-color) */
+    --fn-si: #B8860B; /* Dark Goldenrod (Ancient Star Cluster) */
+    --fn-se: #FF4500; /* OrangeRed (Comet) */
+    --fn-ti: #778899; /* LightSlateGray (Singularity) */
+    --fn-te: #1E90FF; /* DodgerBlue (Galactic Current) */
+    --fn-fi: #DA70D6; /* Orchid (Nebula Core) */
+    --fn-fe: #3CB371; /* MediumSeaGreen (Diffuse Nebula) */
+
+    /* UI Specific */
+    --button-bg: var(--accent-primary);
+    --button-text: #070a18; /* Dark text on bright buttons */
+    --button-hover-bg: var(--text-link-hover);
+    --button-glow: var(--accent-glow);
+
+    --likert-1: #5c67f2; /* Cool dim */
+    --likert-4: #a8b2d1; /* Neutral */
+    --likert-7: #ffeb3b; /* Warm bright */
+    --likert-selected-glow: #ffffff;
+    --likert-1-color: color-mix(in srgb, var(--likert-1) 80%, black);
+    --likert-2-color: color-mix(in srgb, var(--likert-1) 60%, var(--likert-4) 40%);
+    --likert-3-color: color-mix(in srgb, var(--likert-1) 40%, var(--likert-4) 60%);
+    --likert-5-color: color-mix(in srgb, var(--likert-7) 40%, var(--likert-4) 60%);
+    --likert-6-color: color-mix(in srgb, var(--likert-7) 60%, var(--likert-4) 40%);
+    --likert-7-color: color-mix(in srgb, var(--likert-7) 80%, black);
+
+    /* Fonts */
+    --font-body: 'Proxima Nova', sans-serif;
+    --font-heading: 'Orbitron', sans-serif; /* Example Cosmic font, add to head if using */
+
+    /* Temperament Item Colors */
+    --temperament-sj-bg: rgba(100, 140, 147, 0.75);
+    --temperament-sp-bg: rgba(200, 160, 0, 0.75); /* Adjusted SP gold for better text contrast */
+    --temperament-nt-bg: rgba(180, 170, 190, 0.7); /* Adjusted NT grey */
+    --temperament-nf-bg: rgba(80, 138, 120, 0.75);
+}
+
+/* Fallback for Orbitron if not loaded - use PT Sans */
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Orbitron Regular'), local('Orbitron-Regular'), url('https://fonts.gstatic.com/s/orbitron/v17/yMfLfKYj7yOr4r_jKzk.woff2') format('woff2');
+    /* Add other font weights if needed */
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Proxima Nova'; /* Choose your desired font name */
+    src: url('proximanova_light.otf') format('opentype');
+    font-weight: normal; /* Specify weight  */
+    font-style: normal; /* Specify style*/
+    font-display: swap; /* Recommended for controlling loading behavior */
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.7;
+    margin: 0;
+    background-color: var(--bg-deep-space);
+    color: var(--text-primary);
+    /* Add padding bottom to body to make space for the fixed footer */
+    padding-bottom: 90px; /* Height of fixed navigation + some buffer */
+}
+
+h1, h2, h3, h4 { /* Added h4 for stats section */
+    font-family: var(--font-heading);
+    color: var(--text-heading);
+    font-weight: 700;
+    text-shadow: 0 0 8px var(--accent-secondary); /* Subtle violet glow */
+}
+
+h1 {
+    text-align: center;
+    border-bottom: 2px solid var(--border-color-medium);
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+    font-size: 2.8em;
+    text-shadow: 0 0 15px var(--accent-primary); /* Blue glow for main title */
+}
+h2 { margin-bottom: 30px; }
+h3 { margin-bottom: 25px; }
+h4 { margin-bottom: 15px; }
+
+
+/* --- Title Page & Test Area Layout --- */
+#title-page {
+    text-align: center;
+    padding: 60px 30px;
+    /* Increased max-width */
+    max-width: 1100px; /* Increased width */
+    width: 95%; /* Ensure it's responsive on smaller screens */
+    margin: 40px auto;
+    background: var(--bg-nebula-soft);
+    /* Add subtle background image if desired */
+    /* background-image: url('assets/images/title-background-nebula.jpg'); */
+    /* background-size: cover; background-position: center; */
+    border-radius: 20px;
+    border: 2px solid var(--border-color-medium);
+    box-shadow: 0 0 30px rgba(159, 121, 255, 0.3); /* Violet glow */
+    box-sizing: border-box; /* Include padding in the width */
+}
+
+#title-page h1 { /* Override global h1 style slightly for title page */
+    color: #fff; /* Brighter white */
+    text-shadow: 0 0 15px var(--accent-primary); /* Blue glow for main title */
+}
+#title-page p {
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+#test-area {
+    /* Increased max-width */
+    max-width: 1100px; /* MODIFIED: Increased width */
+    width: 95%; /* Ensure it's responsive */
+    margin: 40px auto;
+    padding: 30px; /* Padding within the test area box */
+    margin-top: 150px; /* Increase this value to lower the area.
+    background-color: rgba(16, 20, 44, 0.8); /* Semi-transparent nebula soft over body bg */
+    backdrop-filter: blur(5px); /* Frosted glass effect if desired */
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 20px rgba(97, 218, 251, 0.2); /* Cyan glow */
+    box-sizing: border-box; /* Include padding in the width */
+    /* Add padding bottom to ensure last question content isn't hidden by fixed footer */
+    padding-bottom: 90px; /* Match body padding-bottom */
+}
+
+/* Form is just a wrapper, styles apply to elements inside #test-area */
+#test-area form {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+fieldset {
+    border: none; /* Remove default fieldset border */
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+legend {
+    font-weight: bold;
+    color: var(--text-heading);
+    padding: 0 10px;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 5px var(--accent-secondary); /* Subtle violet glow */
+}
+
+.question-group {
+    margin-bottom: 35px; /* Increased margin */
+    padding: 25px; /* Increased padding */
+    border-left: 4px solid var(--accent-primary); /* Themed left border */
+    background-color: rgba(7, 10, 24, 0.5); /* Darker transparent overlay inside */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.question-group p {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: normal;
+    color: var(--text-primary);
+    font-size: 1.1em;
+}
+.question-group p strong {
+    color: var(--text-heading); /* Question text color */
+    font-weight: bold;
+}
+
+/* --- Hide Original Radio Buttons --- */
+.likert-options input[type="radio"],
+.binary-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none; /* Prevent interaction with the hidden input */
+}
+
+/* --- Likert Scale Styles (Stellar Intensity Markers) --- */
+.likert-options {
+    display: flex; /* Align buttons horizontally */
+    justify-content: center; /* Center the buttons */
+    align-items: center; /* Vertically align */
+    gap: 12px; /* Spacing between buttons */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    margin-top: 20px;
+}
+
+.likert-options label {
+    display: inline-flex; /* Use flex for label content */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0; /* Remove default margins if any */
+    padding: 2px; /* Add padding for focus outline visibility */
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.likert-visual {
+    display: inline-flex; /* Use flex to center number */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-family: var(--font-heading);
+    font-weight: bold;
+    color: #fff; /* Default text color on buttons */
+    background-color: rgba(128,128,128, 0.5); /* Dim grey default */
+    border: 2px solid transparent; /* For checked state */
+    transition: all 0.25s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Elastic transition */
+    box-sizing: border-box; /* Include border in size */
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+/* Size Variations & Base Colors (Cool to Warm Gradient) */
+.likert-options input[value="1"] + .likert-visual { width: 40px; height: 40px; font-size: 1.05em; background-color: var(--likert-1-color); color: #fff; border-color: color-mix(in srgb, var(--likert-1-color) 70%, black); }
+.likert-options input[value="2"] + .likert-visual { width: 43px; height: 43px; font-size: 1.15em; background-color: var(--likert-2-color); color: #fff; border-color: color-mix(in srgb, var(--likert-2-color) 70%, black); }
+.likert-options input[value="3"] + .likert-visual { width: 46px; height: 46px; font-size: 1.25em; background-color: var(--likert-3-color); color: #fff; border-color: color-mix(in srgb, var(--likert-3-color) 70%, black); }
+.likert-options input[value="4"] + .likert-visual { width: 50px; height: 50px; font-size: 1.35em; background-color: var(--likert-4); color: #000; border-color: color-mix(in srgb, var(--likert-4) 70%, black); } /* Neutral */
+.likert-options input[value="5"] + .likert-visual { width: 54px; height: 54px; font-size: 1.45em; background-color: var(--likert-5-color); color: #000; border-color: color-mix(in srgb, var(--likert-5-color) 70%, black); }
+.likert-options input[value="6"] + .likert-visual { width: 58px; height: 58px; font-size: 1.55em; background-color: var(--likert-6-color); color: #000; border-color: color-mix(in srgb, var(--likert-6-color) 70%, black); }
+.likert-options input[value="7"] + .likert-visual { width: 62px; height: 62px; font-size: 1.65em; background-color: var(--likert-7-color); color: #000; border-color: color-mix(in srgb, var(--likert-7-color) 70%, black); }
+/* Hover Effect (Illuminate) */
+.likert-options label:hover .likert-visual {
+    transform: scale(1.25); /* Larger transform on hover */
+    box-shadow: 0 0 15px 3px var(--accent-glow); /* Stronger glow */
+}
+
+/* Checked State - Intense Glow & Pulse */
+.likert-options input[type="radio"]:checked + .likert-visual {
+    border-color: var(--likert-selected-glow);
+    box-shadow: 0 0 10px 3px var(--likert-selected-glow), 0 0 20px 6px color-mix(in srgb, var(--likert-selected-glow) 50%, transparent);
+    transform: scale(1.15); /* Slightly larger when selected */
+    animation: cosmicPulse 1.8s infinite ease-in-out;
+}
+/* Ensure focused state is visible on custom element */
+.likert-options input[type="radio"]:focus-visible + .likert-visual {
+    outline: 3px solid var(--accent-primary); /* More visible focus */
+    outline-offset: 4px;
+}
+@keyframes cosmicPulse {
+    0%, 100% { box-shadow: 0 0 10px 3px var(--likert-selected-glow), 0 0 20px 6px color-mix(in srgb, var(--likert-selected-glow) 50%, transparent); }
+    50% { box-shadow: 0 0 15px 5px var(--likert-selected-glow), 0 0 30px 10px color-mix(in srgb, var(--likert-selected-glow) 30%, transparent); }
+}
+
+
+/* --- Binary Choice Styles (Orbital Path Selectors) --- */
+.binary-choice-pair {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    justify-content: space-between; /* Push elements apart */
+    gap: 20px; /* Space between elements */
+    margin-top: 15px;
+}
+
+.binary-text {
+    flex: 1; /* Allow text to take available space */
+    font-size: 1em;
+    color: var(--text-secondary);
+    min-width: 180px; /* Prevent text from becoming too narrow */
+}
+
+.binary-text-left {
+    text-align: right; /* Align text towards the center buttons */
+}
+
+.binary-text-right {
+    text-align: left; /* Align text towards the center buttons */
+}
+
+.binary-option {
+    display: inline-block; /* Make label behave like a block but flow inline */
+    cursor: pointer;
+    padding: 4px; /* Clickable area for focus */
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.binary-visual {
+    display: inline-block;
+    width: 50px; /* Button size */
+    height: 50px;
+    border-radius: 50%; /* Circular button */
+    background-color: rgba(44, 62, 80, 0.7); /* Dark, inactive node */
+    border: 2px solid rgba(127, 140, 141, 0.5); /* Dim border */
+    transition: all 0.25s ease;
+    position: relative;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+    box-sizing: border-box;
+}
+
+/* Checked State Colors */
+.binary-option-1 input:checked + .binary-visual {
+    background-color: var(--accent-primary); /* Illuminated node */
+    border-color: var(--text-link-hover);
+    box-shadow: 0 0 15px 3px var(--accent-primary), 0 0 25px 8px var(--accent-glow), inset 0 0 5px rgba(0,0,0,0.2);
+    animation: cosmicPulseBinary 1.8s infinite ease-in-out;
+}
+
+.binary-option-2 input:checked + .binary-visual {
+    background-color: var(--accent-secondary); /* Illuminated node */
+    border-color: color-mix(in srgb, var(--accent-secondary) 80%, white);
+    box-shadow: 0 0 15px 3px var(--accent-secondary), 0 0 25px 8px color-mix(in srgb, var(--accent-secondary) 50%, transparent);
+    animation: cosmicPulseBinary 1.8s infinite ease-in-out;
+}
+@keyframes cosmicPulseBinary {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+}
+
+
+/* Hover Effect (Illuminate) */
+.binary-option:hover .binary-visual {
+    border-color: var(--accent-primary);
+    transform: scale(1.15);
+    box-shadow: 0 0 10px 2px var(--accent-glow), inset 0 0 8px rgba(0,0,0,0.4);
+}
+/* Ensure focused state is visible on custom element */
+.binary-option input[type="radio"]:focus-visible + .binary-visual {
+    outline: 3px solid var(--accent-primary);
+    outline-offset: 4px;
+}
+
+
+/* --- General Button Style ("Stellar Button") --- */
+button,
+#start-test-button, /* Ensure title page button gets base style */
+#prev-button, #next-button, #calculate-button, /* Nav buttons */
+#clear-test-button, /* Test area button */
+.reset-sort-button, /* Temperament reset */
+#retake-test-button /* Results button */
+{
+    font-family: var(--font-heading);
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 2px solid var(--accent-primary);
+    border-radius: 30px; /* Pill shape */
+    padding: 12px 30px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 0 10px 0px var(--button-glow), inset 0 0 5px rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block; /* Ensure it respects layout rules */
+}
+button:hover,
+#start-test-button:hover,
+#prev-button:hover, #next-button:hover, #calculate-button:hover,
+#clear-test-button:hover,
+.reset-sort-button:hover,
+#retake-test-button:hover
+{
+    background-color: var(--button-hover-bg);
+    color: var(--bg-deep-space); /* Dark text on light hover */
+    box-shadow: 0 0 20px 5px var(--button-glow), inset 0 0 8px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+button:active,
+#start-test-button:active,
+#prev-button:active, #next-button:active, #calculate-button:active,
+#clear-test-button:active,
+.reset-sort-button:active,
+#retake-test-button:active
+{
+    transform: translateY(0px) scale(0.97);
+    box-shadow: 0 0 5px 2px var(--button-glow), inset 0 0 8px rgba(0,0,0,0.3);
+}
+
+/* Destructive/Warning Button Style */
+#clear-test-button, .reset-sort-button {
+    background-color: #C0392B; /* Cosmic Warning Red */
+    border-color: #E74C3C;
+    box-shadow: 0 0 10px 0px rgba(231, 76, 60, 0.5), inset 0 0 5px rgba(255,255,255,0.3);
+}
+#clear-test-button:hover, .reset-sort-button:hover {
+    background-color: #E74C3C;
+    box-shadow: 0 0 20px 5px rgba(231, 76, 60, 0.7), inset 0 0 8px rgba(0,0,0,0.2);
+}
+#clear-test-button {
+    display: block; /* Make it a block element */
+    width: auto; /* Auto width */
+    margin: 30px auto 0 auto; /* Center button and add margin */
+}
+.reset-sort-button {
+    margin-top: 20px;
+    padding: 10px 25px;
+}
+#retake-test-button {
+    margin: 30px auto 0 auto; /* Center button below results */
+}
+
+
+/* --- Fixed navigation buttons at the bottom --- */
+#navigation-buttons {
+    /* Position: fixed at the bottom */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(7, 10, 24, 0.85); /* Dark, semi-transparent */
+    backdrop-filter: blur(8px);
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.4); /* Shadow at the top */
+    padding: 15px 25px; /* Padding inside the bar */
+    box-sizing: border-box; /* Include padding in width */
+    z-index: 1000; /* Ensure it's on top of content */
+
+    /* Layout for buttons inside */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px; /* Space between nav buttons */
+}
+
+
+/* --- Results Panel (Full Screen) --- */
+#results-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-deep-space) url('https://img.freepik.com/premium-photo/calm-space-scape-with-clouds_231311-89.jpg') no-repeat center center; /* Example deep field background */
+    background-size: cover;
+    background-attachment: fixed; /* Keep deep field static */
+    z-index: 2000; /* High z-index to be on top */
+    overflow-y: auto; /* Allow scrolling if content exceeds screen height */
+    padding: 40px 20px; /* Increased padding */
+    box-sizing: border-box;
+    text-align: center; /* Center the content block */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: flex-start; /* Align content to the top initially */
+    /* Add padding bottom to ensure results content isn't hidden by fixed footer */
+    padding-bottom: 90px; /* Match body padding-bottom */
+}
+
+#results-loading {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    /* Use flex-grow to center within #results-panel if it's flex */
+    flex-grow: 1;
+}
+#results-loading p { /* "Forging Your Constellation..." */
+    color: var(--text-link-hover);
+    font-family: var(--font-heading);
+    font-size: 2em;
+    text-shadow: 0 0 10px var(--accent-primary);
+    margin-bottom: 20px;
+}
+/* CSS Loading Animation */
+.loader-animation {
+    width: 80px; height: 80px;
+    border: 5px solid rgba(159, 121, 255, 0.3); /* Violet ring */
+    border-top-color: var(--accent-secondary); /* Solid violet for spinning part */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+
+#results-content {
+    /* This is the container for the actual results text/lists */
+    background-color: rgba(16, 20, 44, 0.85); /* Semi-transparent nebula soft */
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--border-color-medium);
+    box-shadow: 0 0 40px rgba(159, 121, 255, 0.35); /* Stronger violet glow */
+    color: var(--text-primary);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 900px;
+    width: 95%; /* Ensure it's responsive */
+    text-align: left; /* Reset text align for content */
+    margin-top: 0; /* Flex handles vertical space */
+    margin-bottom: 0; /* Flex handles vertical space */
+    box-sizing: border-box; /* Include padding in width */
+    flex-shrink: 0; /* Prevent content from shrinking below its size */
+}
+
+#results-content h2 { /* "Your Stellar Signature: [TYPE]" */
+    margin-top: 0;
+    border-bottom: 1px solid var(--border-color-medium);
+    padding-bottom: 15px;
+    color: #fff;
+    text-align: center;
+    font-size: 2.4em;
+    margin-bottom: 20px;
+}
+
+/* Constellation Graphic Container */
+#constellation-graphic-container { /* Holds the SVG */
+    width: 100%;
+    max-width: 350px; /* Control max size */
+    height: auto; /* Maintain aspect ratio */
+    margin: 10px auto 30px auto; /* Center graphic below title */
+    filter: drop-shadow(0 0 15px var(--accent-primary)); /* Glow around the SVG */
+}
+#constellation-graphic-container img { /* If using <img> for SVG */
+    width: 100%; height: 100%; display: block;
+}
+
+
+#results-content p,
+#results-content li {
+    font-size: 1.1em; /* Keep font size */
+    color: var(--text-secondary);
+}
+
+#results-content ul {
+    list-style: none; /* Remove list bullets */
+    padding: 0;
+    margin-top: 15px;
+}
+
+#results-content li {
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: rgba(7, 10, 24, 0.4);
+    font-size: 1.05em;
+    color: var(--text-primary);
+}
+
+#results-content li span {
+    font-weight: bold;
+    color: var(--accent-primary); /* Match accent color */
+}
+
+/* Specific style for the function stack display ("Your Cognitive Orbit") */
+.function-stack-display {
+    margin-top: 20px;
+    margin-bottom: 25px;
+    padding: 20px;
+    border: 1px dashed var(--border-color);
+    border-radius: 10px;
+    background-color: rgba(7, 10, 24, 0.6);
+}
+.function-stack-display p {
+    font-size: 1.15em;
+    margin: 10px 0;
+    color: var(--text-primary);
+}
+.function-stack-display strong {
+    color: var(--accent-secondary);
+    font-family: var(--font-heading);
+    min-width: 180px; /* Align labels */
+    display: inline-block;
+    letter-spacing: 0.5px;
+}
+.function-stack-display strong::after {
+    content: ':'; /* Add colon after thematic name */
+    margin-left: 5px;
+}
+
+
+/* Stats for Nerds section ("Behind the Stellar Data") */
+#stats-for-nerds {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.4);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.9em; /* Smaller text */
+    text-align: left; /* Ensure text aligns left within this box */
+}
+#stats-for-nerds h4 {
+    margin-top: 0;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+#stats-for-nerds p {
+    margin-bottom: 8px;
+    line-height: 1.6;
+    word-break: break-word; /* Prevent long strings from overflowing */
+    color: var(--text-secondary);
+}
+#stats-for-nerds strong { color: var(--text-primary); }
+
+
+/* --- Temperament Sorter Styles (Planetary Alignment Sorter) --- */
+.temperament-sorter {
+    border: 1px solid var(--border-color-medium);
+    background-color: rgba(16, 20, 44, 0.7); /* Semi-transparent dark bg */
+    border-radius: 15px;
+    padding: 20px;
+}
+.temperament-sorter legend {
+    color: var(--text-heading);
+    font-size: 1.3em;
+    padding: 0 15px;
+    text-shadow: 0 0 5px var(--accent-secondary);
+    margin-bottom: 20px;
+}
+.ts-instruction { color: var(--text-secondary); font-size: 1.1em; display: block; margin-bottom: 20px;}
+
+.sort-container {
+    border: none; padding: 0; background: none;
+}
+.sorted-area { /* Orbital Paths Area */
+    display: flex; /* Ensure flex */
+    justify-content: space-around; /* MODIFIED: Distribute slots more evenly */
+    border-bottom: 3px solid var(--accent-primary); /* More prominent divider */
+    padding-bottom: 25px; margin-bottom: 25px;
+    gap: 15px;
+}
+
+.sorted-slot { /* Individual Orbital Path / Docking Bay */
+    flex-basis: 220px; /* MODIFIED: Give slots a base width */
+    flex-grow: 1; /* Allow them to grow a bit */
+    max-width: 260px; /* MODIFIED: But not too much */
+    background: radial-gradient(ellipse at center, rgba(10,14,22,0.8) 0%, rgba(7,10,24,0.9) 70%);
+    border: 2px dashed var(--border-color);
+    min-height: 120px; /* Taller slots */
+    padding: 10px;
+    border-radius: 15px; /* Rounded rectangle slots */
+    display: flex; /* Use flex for centering placeholder */
+    align-items: center;
+    justify-content: center;
+    position: relative; /* For label positioning */
+    text-align: center; /* Center text if item placed */
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+}
+
+.slot-label { /* "Inner Orbit", "Mid Orbit", etc. */
+    position: absolute;
+    top: -12px; /* Position label above the slot */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.85em;
+    font-weight: bold;
+    color: var(--text-secondary);
+    background-color: var(--bg-nebula-soft); /* Match container bg */
+    padding: 2px 8px;
+    white-space: nowrap;
+    z-index: 1; /* Ensure label is above the slot background */
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: var(--font-heading);
+}
+
+.unsorted-area { /* Field of Planetary Objects */
+    display: grid; /* Use grid for better wrapping */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* MODIFIED: Wider items */
+    gap: 20px; /* MODIFIED: Increased gap */
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px dashed rgba(159, 121, 255, 0.2); /* Border around unsorted area */
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.sortable-item { /* Rectangular Item */
+    border-radius: 12px; /* MODIFIED: Rectangular shape */
+    width: 100%; /* MODIFIED: Fill grid column */
+    min-height: 110px; /* MODIFIED: Ensure space for text */
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 15px; /* MODIFIED: More padding for text */
+    font-size: 0.9em; /* MODIFIED: Slightly larger text */
+    color: var(--text-primary);
+    cursor: grab;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, opacity 0.3s ease, background-color 0.3s ease; /* Add opacity transition */
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.3), inset 0 0 10px rgba(0,0,0,0.2); /* MODIFIED: Simpler inset shadow */
+    position: relative; /* For potential overlays/glows */
+    overflow: hidden; /* For texture (if any) */
+    box-sizing: border-box; /* Include padding/border in size */
+    user-select: none; /* Prevent text selection during drag */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    /* background-image properties removed, will use background-color */
+}
+
+/* Temperament specific backgrounds (MODIFIED to solid colors) */
+.sortable-item[data-temperament="SJ"] { background-color: var(--temperament-sj-bg); }
+.sortable-item[data-temperament="SP"] { background-color: var(--temperament-sp-bg); }
+.sortable-item[data-temperament="NT"] { background-color: var(--temperament-nt-bg); }
+.sortable-item[data-temperament="NF"] { background-color: var(--temperament-nf-bg); }
+
+
+.sortable-item::before { /* Subtle atmospheric glow */
+    content: ''; position: absolute; top:0; left:0; right:0; bottom:0;
+    border-radius: inherit; /* MODIFIED: Inherit border-radius */
+    box-shadow: inset 0 0 15px 5px rgba(255,255,255,0.1);
+    opacity: 0.7;
+    z-index: 1; /* Above background */
+    pointer-events: none; /* Allow clicks to pass through to item */
+}
+.sortable-item span { /* Text span inside item */
+    position: relative; z-index: 2; /* Ensure text is above glow */
+}
+
+
+.sortable-item:hover {
+    transform: scale(1.03) translateY(-3px); /* MODIFIED: Subtler hover scale */
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.4), 0 0 15px var(--accent-glow), inset 0 0 10px rgba(0,0,0,0.2);
+    z-index: 10; /* Bring to front on hover */
+    cursor: grab;
+}
+.sortable-item:active {
+    cursor: grabbing;
+}
+
+/* Style for items when they are 'placed' (original item in unsorted area) - now just lower opacity */
+.sortable-item.placed {
+    opacity: 0.3;
+    filter: grayscale(80%);
+    cursor: default;
+    pointer-events: none; /* Prevent clicking the ghost item */
+}
+.sortable-item.placed:hover { /* Remove hover effects from ghost */
+    transform: none;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.3), inset 0 0 10px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+
+/* Style for the item placed inside a slot */
+.sorted-slot .sortable-item.placed-in-slot {
+    width: 90%; /* MODIFIED: Percentage of slot width */
+    max-width: 200px; /* MODIFIED: Max width for the item in slot */
+    min-height: 100px; /* MODIFIED: Consistent min-height */
+    border-radius: 10px; /* MODIFIED: Rectangular shape */
+    cursor: pointer; /* Allow clicking to return to unsorted */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; /* Keep transition */
+    margin-left: auto; /* MODIFIED: Center in slot */
+    margin-right: auto; /* MODIFIED: Center in slot */
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.5), 0 0 10px var(--accent-primary), inset 0 0 8px rgba(0,0,0,0.3); /* MODIFIED: Glow in slot */
+    opacity: 1; /* Full opacity when placed */
+    filter: none; /* No filter when placed */
+    pointer-events: auto; /* Make it clickable in slot */
+    /* background-color will be inherited from data-temperament */
+}
+.sorted-slot .sortable-item.placed-in-slot:hover {
+    transform: scale(1.03); /* Subtle scale on hover in slot */
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.5), 0 0 15px var(--accent-primary), inset 0 0 8px rgba(0,0,0,0.3);
+}
+.sorted-slot .sortable-item.placed-in-slot::before { /* Adjust inner glow in slot */
+    box-shadow: inset 0 0 10px 3px rgba(255,255,255,0.2);
+    border-radius: inherit; /* MODIFIED */
+}
+
+
+/* --- Progress Bar Styles (Sticky) --- */
+#progress-container {
+    width: 40%; /* Roughly one-third of the screen width */
+    max-width: 400px; /* Optional: prevent it getting too wide on large screens */
+    min-width: 200px; /* Optional: ensure it's usable on small screens */
+    height: 12px; /* Relatively thin */
+    background-color: rgba(100,100,100,0.6); /* Dark, translucent track */
+    border-radius: 20px; /* Rounded corners for the container */
+    margin: 25px auto 35px auto; /* Center horizontally, add vertical spacing */
+    overflow: hidden; /* Keep the inner bar contained */
+
+    /* --- Sticky Positioning --- */
+    position: sticky; /* Make it sticky */
+    top: 15px;          /* Stick to the top of the viewport (adjust if header is present) */
+    z-index: 1001;     /* Ensure it stays on top of test content */
+    /* --- Sticky Positioning End --- */
+
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+#progress-bar {
+    height: 100%;
+    width: 0%; /* Start at 0% */
+    border-radius: 20px;
+    /* Apply the gradient */
+    background: linear-gradient(90deg, var(--accent-secondary) 0%, var(--accent-primary) 100%); /* Violet to Cyan */
+    transition: width 0.4s ease-in-out; /* Smooth transition */
+    display: flex; /* Enable flexbox for centering text */
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+    position: relative; /* Needed for z-index if text overlaps */
+    box-shadow: 0 0 8px 0px var(--accent-primary), 0 0 4px 0px var(--accent-secondary); /* Dual glow */
+}
+
+#progress-text {
+    /* Hide text inside the bar as per suggestion */
+    display: none;
+}
+/* Alternative: Progress text next to the bar (JS needs to update a data-attribute on a parent like #test-area) */
+/* #test-area::before {
+    content: attr(data-progress-text);
+    display: block;
+    text-align: center;
+    font-family: var(--font-heading);
+    color: var(--accent-primary);
+    margin-bottom: -20px;
+    font-size: 0.9em;
+} */
+
+
+/* --- Responsiveness --- */
+@media (max-width: 992px) { /* Added a breakpoint for wider screens */
+    #test-area, #title-page, #results-content {
+        max-width: 90%; /* Adjust max-width down slightly */
+    }
+    .sorted-slot {
+        min-height: 100px; /* Slightly smaller slots */
+        flex-basis: 180px; /* Adjust slot base for medium screens */
+        max-width: 220px;
+    }
+    .unsorted-area {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Adjust for medium screens */
+    }
+    .sortable-item {
+        min-height: 100px; /* Adjust min height */
+        font-size: 0.85em; /* Adjust font size */
+    }
+    .sorted-slot .sortable-item.placed-in-slot {
+        min-height: 90px; /* Adjust min height */
+        max-width: 180px;
+    }
+
+}
+
+
+@media (max-width: 768px) { /* Adjust breakpoint if needed */
+    body {
+        padding-bottom: 80px; /* Adjust for smaller fixed footer if needed */
+    }
+    #test-area, #title-page, #results-content {
+        max-width: 95%; /* Ensure full width minus padding */
+        padding: 20px; /* Reduced padding */
+    }
+
+    /* Binary Choice Stack */
+    .binary-choice-pair {
+        flex-direction: column; /* Stack binary options vertically */
+        align-items: stretch; /* Stretch items */
+        gap: 10px; /* Reduced gap */
+    }
+    .binary-text {
+        min-width: 0; /* Reset min-width */
+        text-align: center !important; /* Center text */
+        margin-bottom: 0; /* Reduced margin */
+    }
+    .binary-text-left { order: 1; } /* Text 1 */
+    .binary-option-1 { order: 2; text-align: center;} /* Button 1 */
+    .binary-option-2 { order: 3; text-align: center;} /* Button 2 */
+    .binary-text-right { order: 4; } /* Text 2 */
+
+    .binary-option .binary-visual {
+        margin: 0 auto; /* Center buttons when stacked */
+    }
+
+    /* Temperament Sorter Stack */
+    .sorted-area {
+        flex-direction: column; /* Stack slots vertically */
+        align-items: stretch;
+        border-bottom: none;
+        padding-bottom: 0;
+        gap: 10px; /* Reduced gap */
+    }
+    .sorted-slot {
+        min-height: 80px; /* Adjust min height */
+        padding: 8px; /* Reduced padding */
+        flex-basis: auto; /* Reset basis for column layout */
+        max-width: none; /* Reset max-width for column layout */
+    }
+    .slot-label {
+        /* Adjust label position for vertical stacking */
+        top: 5px;
+        left: 5px;
+        transform: none;
+        background: none;
+        padding: 0;
+        font-size: 0.75em;
+        border: none;
+    }
+    .sorted-slot .sortable-item.placed-in-slot {
+        margin-top: 10px; /* Add space below label */
+        width: 95%; /* Take most of slot width */
+        max-width: none; /* No max width when stacked */
+        min-height: 70px;
+    }
+
+    /* Progress Bar Width */
+    #progress-container {
+        width: 60%; /* Wider on smaller screens */
+    }
+
+    #navigation-buttons {
+        padding: 10px 15px; /* Reduced padding */
+        gap: 10px;
+    }
+    #navigation-buttons button {
+        padding: 8px 15px; /* Smaller buttons */
+        font-size: 0.9em;
+    }
+    #results-content h2 { font-size: 2em; }
+    #results-content h3 { font-size: 1.3em; }
+    .function-stack-display p { font-size: 1.05em; }
+    .function-stack-display strong { min-width: 140px; }
+    #stats-for-nerds h4 { font-size: 1.1em; }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding-bottom: 70px; /* Default padding bottom for fixed footer */
+    }
+    #test-area, #title-page, #results-content {
+        padding: 15px; /* Slightly reduced padding */
+        width: 98%; /* Use a larger percentage */
+        max-width: none; /* Remove max-width constraint */
+    }
+    h1 { font-size: 2.2em; padding-bottom: 15px; }
+    legend { font-size: 1.2em; }
+    .question-group { padding: 20px; }
+    .question-group p { font-size: 1em; }
+
+
+    /* Stack likert controls fully vertically on very small screens */
+    .likert-options {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .likert-options label {
+        width: 100%; /* Make labels take full width */
+        justify-content: flex-start; /* Align content to left */
+        padding-left: 10px;
+        border-radius: 5px; /* Rectangular touch when stacked */
+    }
+    .likert-visual {
+        margin-right: 10px; /* Space between visual and number */
+        /* Reset sizes or adjust if needed for vertical layout */
+        width: 30px; height: 30px; font-size: 1em;
+    }
+
+    /* Temperament Unsorted Grid */
+    .unsorted-area {
+        grid-template-columns: 1fr; /* Single column */
+        padding: 5px;
+        gap: 10px;
+    }
+    .sortable-item {
+        width: 100%; /* MODIFIED: Was auto, ensure it's full width */
+        min-height: 70px; /* MODIFIED: Was fixed height */
+        border-radius: 8px;
+        flex-direction: row;
+        gap: 10px;
+        padding: 10px 15px;
+        align-items: center; /* Ensure vertical centering for row layout */
+        font-size: 0.85em; /* Match other small screen item text */
+    }
+    .sortable-item[data-temperament] { /* Reset border/bg styles for stacked view */
+        border-left: 5px solid;
+        background-image: none !important; /* Remove planet texture */
+        /* Specific background colors already defined in this media query are fine */
+    }
+    .sortable-item[data-temperament="SJ"] { border-left-color: var(--temperament-sj-bg); background-color: color-mix(in srgb, var(--temperament-sj-bg) 20%, transparent); }
+    .sortable-item[data-temperament="SP"] { border-left-color: var(--temperament-sp-bg); background-color: color-mix(in srgb, var(--temperament-sp-bg) 20%, transparent); }
+    .sortable-item[data-temperament="NT"] { border-left-color: var(--temperament-nt-bg); background-color: color-mix(in srgb, var(--temperament-nt-bg) 20%, transparent); }
+    .sortable-item[data-temperament="NF"] { border-left-color: var(--temperament-nf-bg); background-color: color-mix(in srgb, var(--temperament-nf-bg) 20%, transparent); }
+
+
+    .sortable-item::before { display: none; } /* Hide inner glow for this flat list view */
+
+    .sorted-slot {
+        min-height: 60px; /* Adjust min height */
+        padding: 5px;
+    }
+    .slot-label {
+        top: 3px; left: 3px; font-size: 0.7em;
+    }
+    .sorted-slot .sortable-item.placed-in-slot {
+        width: 100%; /* MODIFIED: Was auto */
+        min-height: 60px; /* MODIFIED: Was fixed height */
+        border-radius: 5px; /* Rectangular in slot */
+        flex-direction: row; gap: 10px; padding: 5px 10px;
+        align-items: center; /* Ensure vertical centering for row layout */
+        border-left: 5px solid var(--accent-primary); /* Themed border */
+        background-color: rgba(97, 218, 251, 0.1); /* Light bg */
+    }
+    .sorted-slot .sortable-item.placed-in-slot::before { display: none;}
+    .sorted-slot .sortable-item.placed-in-slot span { color: var(--text-primary); } /* Text color in slot */
+
+
+    /* Progress Bar Width */
+    #progress-container {
+        width: 90%; /* Max width fill */
+        min-width: auto;
+    }
+
+    #navigation-buttons button {
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+
+    #results-content h2 { font-size: 1.8em; }
+    #results-content h3 { font-size: 1.2em; margin-top: 20px; padding-top: 15px; }
+    .function-stack-display p { font-size: 1em; }
+    .function-stack-display strong { min-width: auto; display: block; margin-bottom: 5px;}
+    .function-stack-display strong::after { content: ''; margin-left: 0;} /* Remove colon */
+    #stats-for-nerds { padding: 15px; }
+    #stats-for-nerds h4 { font-size: 1em; }
+    #stats-for-nerds p { font-size: 0.85em; }
+    #retake-test-button { font-size: 0.9em; padding: 8px 15px; }
+}
+/* --- Header Specific Styles --- */
+.site-header {
+    background-color: var(--bg-deep-space); /* Dark background for header */
+    padding: 15px 30px;
+    border-bottom: 1px solid var(--border-color-medium);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    position: sticky; /* Make header sticky */
+    top: 0; /* Stick to the top of the viewport */
+    z-index: 1000; /* Ensure it's above other content */
+    display: flex; /* Use flexbox for content layout */
+    justify-content: center; /* Center the header content */
+    align-items: center;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Limit content width */
+    width: 100%;
+}
+
+.site-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-heading);
+    font-family: var(--font-heading);
+    font-size: 1.8em;
+    font-weight: 700;
+    text-shadow: 0 0 10px var(--accent-primary);
+    transition: text-shadow 0.3s ease;
+}
+
+.site-logo:hover {
+    text-shadow: 0 0 20px var(--text-link-hover);
+}
+
+.site-logo .logo-icon {
+    font-size: 1.2em;
+    margin-left: 10px;
+    color: var(--accent-primary);
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Make main nav items horizontal */
+    gap: 30px; /* Space between main nav items */
+}
+
+.main-nav li {
+    position: relative; /* Needed for dropdown positioning */
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: var(--text-primary);
+    font-family: var(--font-body); /* Body font for navigation links */
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 10px 0;
+    display: block;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible { /* For keyboard navigation accessibility */
+    color: var(--text-link-hover);
+    text-shadow: 0 0 8px var(--accent-primary);
+    outline: none; /* Remove default outline, using text-shadow */
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%; /* Position below the parent link */
+    left: 0;
+    background-color: var(--bg-nebula-soft); /* Dropdown background */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    min-width: 180px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1001; /* Above other header elements */
+    opacity: 0; /* For smooth fade-in */
+    pointer-events: none; /* Disable interaction when hidden */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px); /* Start slightly below for animation */
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.dropdown-menu li a {
+    font-size: 1em;
+    font-weight: normal;
+    padding: 10px 20px; /* Padding for dropdown items */
+    white-space: nowrap; /* Prevent text wrapping */
+    color: var(--text-secondary); /* Text color for dropdown items */
+}
+
+.dropdown-menu li a:hover,
+.dropdown-menu li a:focus-visible {
+    background-color: var(--bg-interactive-hover); /* Hover background for dropdown items */
+    color: var(--text-link); /* Brighter color on hover/focus */
+    text-shadow: none; /* No shadow on dropdown item text */
+}
+
+/* Show dropdown on hover and focus-within */
+.main-nav li.dropdown:hover .dropdown-menu,
+.main-nav li.dropdown:focus-within .dropdown-menu {
+    display: block; /* Make it visible */
+    opacity: 1; /* Fade in */
+    pointer-events: auto; /* Enable interaction */
+    transform: translateY(0); /* Move to final position */
+}
+
+.dropdown-arrow {
+    font-size: 0.8em;
+    margin-left: 8px;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+
+.main-nav li.dropdown:hover .dropdown-arrow,
+.main-nav li.dropdown:focus-within .dropdown-arrow {
+    transform: rotate(180deg); /* Rotate arrow when dropdown is open */
+}
+
+/* --- Mobile Responsiveness for Header --- */
+@media (max-width: 768px) {
+    .site-header {
+        padding: 10px 20px;
+    }
+    .header-content {
+        flex-direction: column; /* Stack logo and nav vertically */
+        align-items: flex-start; /* Align to the left */
+    }
+    .site-logo {
+        margin-bottom: 10px;
+    }
+    .main-nav {
+        width: 100%; /* Take full width */
+    }
+    .main-nav ul {
+        flex-direction: column; /* Stack main nav items vertically */
+        gap: 0; /* Remove gap */
+        width: 100%;
+    }
+    .main-nav li {
+        width: 100%; /* Full width for each main nav item */
+        border-bottom: 1px solid var(--border-color); /* Separator */
+    }
+    .main-nav li:last-child {
+        border-bottom: none;
+    }
+    .main-nav a {
+        padding: 12px 10px; /* More padding for easier tapping */
+        font-size: 1em;
+    }
+    /* Adjust dropdown behavior for mobile to stack beneath */
+    .dropdown-menu {
+        position: static; /* Stack dropdowns below parent on mobile */
+        width: 100%; /* Take full width */
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+        margin-top: 0;
+        transform: translateY(0); /* No translation */
+        background-color: rgba(0,0,0,0.2); /* Slightly transparent for nested lists */
+    }
+    .dropdown-menu li a {
+        padding-left: 30px; /* Indent dropdown items */
+        font-size: 0.95em;
+    }
+    /* On mobile, dropdowns might not need hover; focus-within still applies for keyboard. */
+    .main-nav li.dropdown:hover .dropdown-menu,
+    .main-nav li.dropdown:focus-within .dropdown-menu {
+        display: flex; /* Show dropdowns as flex column */
+        flex-direction: column;
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+/* --- Footer Specific Styles (Cosmic Mindscape Edition) --- */
+.site-footer {
+    background-color: var(--bg-deep-space); /* Consistent with header background */
+    padding: 30px 20px;
+    border-top: 1px solid var(--border-color-medium);
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.4); /* Shadow pointing upwards, subtle */
+    color: var(--text-secondary); /* Softer secondary text color */
+    text-align: center; /* Default for centering content within */
+    position: relative; /* For potential absolute elements or starry backgrounds */
+    overflow: hidden; /* Ensures content stays within bounds if we add pseudo-elements for effects */
+}
+
+/* Optional: Subtle starry background for the footer */
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 1%, transparent 5%),
+    radial-gradient(circle at 70% 80%, rgba(255,255,255,0.08) 1%, transparent 5%);
+    background-size: 200px 200px, 150px 150px;
+    opacity: 0.3;
+    z-index: 0;
+    pointer-events: none; /* Allows clicks to pass through */
+}
+
+
+.footer-content {
+    max-width: 1000px; /* Max width for footer content */
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: space-around; /* Distribute sections evenly */
+    gap: 30px; /* Space between columns */
+    align-items: flex-start; /* Align sections to the top */
+    position: relative; /* Ensure content is above ::before */
+    z-index: 1;
+}
+
+.footer-section {
+    flex: 1; /* Allow sections to grow and shrink */
+    min-width: 250px; /* Minimum width for each section before wrapping */
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left; /* Align text within sections to the left */
+}
+
+.footer-section h3 {
+    font-family: var(--font-heading);
+    color: var(--text-heading);
+    font-size: 1.4em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-shadow: 0 0 8px var(--accent-secondary); /* Violet glow for footer headings */
+}
+
+.footer-section p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.footer-section .project-tagline {
+    font-size: 1.1em;
+    font-style: italic;
+    color: var(--accent-primary); /* Use an accent color for the tagline */
+    text-shadow: 0 0 5px rgba(97, 218, 251, 0.2);
+}
+
+.footer-section .student-credit {
+    font-size: 0.85em;
+    font-style: italic;
+    color: var(--text-secondary);
+    opacity: 0.8;
+    margin-top: 15px; /* Space above the credit */
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: var(--text-link); /* Bright cyan for links */
+    font-size: 1em;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.footer-section ul li a:hover,
+.footer-section ul li a:focus-visible {
+    color: var(--text-link-hover); /* Brighter cyan on hover */
+    text-shadow: 0 0 5px var(--accent-primary);
+    outline: none;
+}
+
+/* Specific alignment for the legal text / last section */
+.footer-info-line {
+    flex-basis: 100%; /* Make this section take full width on its own line */
+    text-align: center; /* Center the legal text */
+    margin-top: 25px; /* Space above it */
+    border-top: 1px dashed var(--border-color); /* Subtle separator */
+    padding-top: 20px;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+
+/* Mobile Responsiveness for Footer */
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 20px 15px;
+    }
+    .footer-content {
+        flex-direction: column; /* Stack sections vertically */
+        align-items: center; /* Center items in the column */
+        gap: 20px;
+    }
+    .footer-section {
+        min-width: unset; /* Remove min-width constraint */
+        width: 100%; /* Take full width of parent */
+        text-align: center; /* Center content when stacked */
+        padding: 0 10px; /* Adjust padding for smaller screens */
+    }
+    .footer-section h3 {
+        margin-bottom: 10px;
+    }
+    .footer-info-line {
+        margin-top: 15px;
+        padding-top: 15px;
+    }
+}
+/* --- Style for the "Explore Your Type" button on results page --- */
+.explore-type-button {
+    /* Inherit general button styles by mimicking them or using a shared class if you have one */
+    font-family: var(--font-heading);
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 2px solid var(--accent-primary);
+    border-radius: 30px; /* Pill shape */
+    padding: 12px 30px;
+    font-size: 1.1em; /* Slightly larger for emphasis */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 0 10px 0px var(--button-glow), inset 0 0 5px rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block; /* So it behaves like a button */
+    text-decoration: none; /* Remove underline from link */
+    margin-top: 10px; /* Add some space above the button */
+}
+
+.explore-type-button:hover,
+.explore-type-button:focus-visible {
+    background-color: var(--button-hover-bg);
+    color: var(--bg-deep-space); /* Dark text on light hover */
+    box-shadow: 0 0 20px 5px var(--button-glow), inset 0 0 8px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.explore-type-button:active {
+    transform: translateY(0px) scale(0.97);
+    box-shadow: 0 0 5px 2px var(--button-glow), inset 0 0 8px rgba(0,0,0,0.3);
+}

@@ -1,0 +1,510 @@
+{
+  "testTitle": "Jungian Cognitive Function Estimator",
+  "sections": [
+    {
+      "sectionType": "likert",
+      "sectionTitle": "Function Preferences (1=Strongly Disagree, 7=Strongly Agree)",
+      "questions": [
+        {
+          "id": "likert_te_q1",
+          "name": "Te_Q1",
+          "text": "I like to organize people and resources to achieve a clear, logical goal.",
+          "functionTarget": "Te",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_te_q2",
+          "name": "Te_Q2",
+          "text": "Setting realistic goals and achieving efficient, long-term, worthwhile outcomes is very important to me.",
+          "functionTarget": "Te",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_te_q3",
+          "name": "Te_Q3",
+          "text": "I am comfortable making decisions that ensure rules and procedures are followed by everyone.",
+          "functionTarget": "Te",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_te_q4",
+          "name": "Te_Q4",
+          "text": "I focus on creating order and structure in the external world to get things done effectively.",
+          "functionTarget": "Te",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_te_q5_rev",
+          "name": "Te_Q5",
+          "text": "I often let personal feelings heavily influence my decisions, even if it's not the most logical approach for the situation.",
+          "functionTarget": "Te",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_te_q6_rev",
+          "name": "Te_Q6",
+          "text": "I prefer to let things unfold naturally rather than creating detailed structures or enforcing strict plans.",
+          "functionTarget": "Te",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_ti_q1",
+          "name": "Ti_Q1",
+          "text": "I enjoy figuring out the precise definition of concepts just for my own understanding.",
+          "functionTarget": "Ti",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ti_q2",
+          "name": "Ti_Q2",
+          "text": "It's very important to me that my ideas and beliefs form a consistent internal logical system.",
+          "functionTarget": "Ti",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ti_q3",
+          "name": "Ti_Q3",
+          "text": "I like to understand the underlying principles of how things work, even if it's not immediately practical.",
+          "functionTarget": "Ti",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ti_q4",
+          "name": "Ti_Q4",
+          "text": "I often analyze ideas to ensure they are accurate and make logical sense to me personally.",
+          "functionTarget": "Ti",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ti_q5_rev",
+          "name": "Ti_Q5",
+          "text": "I readily accept a conclusion as true if it's widely accepted by others, even if it doesn't fully make sense to my own logic.",
+          "functionTarget": "Ti",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_ti_q6_rev",
+          "name": "Ti_Q6",
+          "text": "I rarely spend much time thinking about the exact meaning of words or the deep logic behind an idea.",
+          "functionTarget": "Ti",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_fe_q1",
+          "name": "Fe_Q1",
+          "text": "When I'm with people, I can easily tell what feelings and actions are expected, and I try to make sure everyone acts that way so things go smoothly.",
+          "functionTarget": "Fe",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_fe_q2",
+          "name": "Fe_Q2",
+          "text":  "People often tell me that I help make a group feel more positive or comfortable.",
+          "functionTarget": "Fe",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_fe_q3",
+          "name": "Fe_Q3",
+          "text": "I enjoy making people feel comfortable, included, and valued in social situations.",
+          "functionTarget": "Fe",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_fe_q4",
+          "name": "Fe_Q4",
+          "text": "I make an effort to create a warm and friendly feeling between myself and others.",
+          "functionTarget": "Fe",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_fe_q5_rev",
+          "name": "Fe_Q5",
+          "text": "I usually say exactly what I think is true, even if it might upset the social harmony or make others uncomfortable.",
+          "functionTarget": "Fe",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_fe_q6_rev",
+          "name": "Fe_Q6",
+          "text": "I find it difficult to adjust my behavior to match the social expectations or feeling-needs of a situation.",
+          "functionTarget": "Fe",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_fi_q1",
+          "name": "Fi_Q1",
+          "text": "I make decisions based on what feels right according to my deepest personal values and ethics.",
+          "functionTarget": "Fi",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_fi_q2",
+          "name": "Fi_Q2",
+          "text": "It's very important for me to be true to myself and my inner convictions, even if it goes against what others expect.",
+          "functionTarget": "Fi",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_fi_q3",
+          "name": "Fi_Q3",
+          "text": "I spend time reflecting on what is truly important and meaningful to me in life.",
+          "functionTarget": "Fi",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_fi_q4",
+          "name": "Fi_Q4",
+          "text": "I have a strong sense of inner conviction about what is right and wrong for me, regardless of external pressures.",
+          "functionTarget": "Fi",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_fi_q5_rev",
+          "name": "Fi_Q5",
+          "text": "I often change my personal beliefs or moral stance to fit in with the group I'm with.",
+          "functionTarget": "Fi",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_fi_q6_rev",
+          "name": "Fi_Q6",
+          "text": "My decisions are rarely guided by a strong, personal moral compass or deeply held individual values.",
+          "functionTarget": "Fi",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_se_q1",
+          "name": "Se_Q1",
+          "text": "I pay most attention to what is happening in the world around me right now.",
+          "functionTarget": "Se",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_se_q2",
+          "name": "Se_Q2",
+          "text": "I learn best by doing and experiencing things firsthand in the moment.",
+          "functionTarget": "Se",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_se_q3",
+          "name": "Se_Q3",
+          "text": "I really enjoy experiencing life directly with my senses.",
+          "functionTarget": "Se",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_se_q4",
+          "name": "Se_Q4",
+          "text": "I actively seek out new and stimulating physical experiences (like playing sports, trying new activities, or visiting exciting places).",
+          "functionTarget": "Se",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_se_q5_rev",
+          "name": "Se_Q5",
+          "text": "Busy, noisy environments (like sports arenas, bustling markets, or loud concerts) tend to exhaust or overstimulate me, making me want to leave.",
+          "functionTarget": "Se",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_se_q6_rev",
+          "name": "Se_Q6",
+          "text": "I tend to miss the sights, sounds, or physical things happening around me because I'm stuck in my head.",
+          "functionTarget": "Se",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_si_q1",
+          "name": "Si_Q1",
+          "text": "When something happens, I pay most attention to the feeling or 'picture' it creates inside me.",
+          "functionTarget": "Si",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_si_q2",
+          "name": "Si_Q2",
+          "text": "Things I sense or remember often feel like they have a hidden importance or meaning.",
+          "functionTarget": "Si",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_si_q3",
+          "name": "Si_Q3",
+          "text": "I feel most comfortable and effective when things are familiar and follow established, dependable routines.",
+          "functionTarget": "Si",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_si_q4",
+          "name": "Si_Q4",
+          "text": "I pay close attention to specific details and past information to ensure consistency and accuracy in the present.",
+          "functionTarget": "Si",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_si_q5_rev",
+          "name": "Si_Q5",
+          "text": "I rarely rely on my past experiences or stored knowledge when dealing with new situations.",
+          "functionTarget": "Si",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_si_q6_rev",
+          "name": "Si_Q6",
+          "text": "I don't have a strong picture in my mind of how my surroundings should look.",
+          "functionTarget": "Si",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_ne_q1",
+          "name": "Ne_Q1",
+          "text": "I often feel a strong urge to find new ideas or possibilities in the world outside me." ,
+          "functionTarget": "Ne",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ne_q2",
+          "name": "Ne_Q2",
+          "text": "I often see many different patterns and potential links between seemingly unrelated things or concepts.",
+          "functionTarget": "Ne",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ne_q3",
+          "name": "Ne_Q3",
+          "text": "I get excited by starting new projects and trying out novel approaches or envisioning what could be.",
+          "functionTarget": "Ne",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ne_q4",
+          "name": "Ne_Q4",
+          "text": "I get excited about finding the hidden potential or future possibilities in people or projects.",
+          "functionTarget": "Ne",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ne_q5_rev",
+          "name": "Ne_Q5",
+          "text": "I prefer to focus on one proven way of doing things rather than exploring multiple, untried alternatives.",
+          "functionTarget": "Ne",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_ne_q6_rev",
+          "name": "Ne_Q6",
+          "text": "I rarely spend time imagining \"what if\" scenarios or generating a wide range of future possibilities.",
+          "functionTarget": "Ne",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_ni_q1",
+          "name": "Ni_Q1",
+          "text": "I often have sudden, deep insights or a strong sense of \"knowing\" about future outcomes or underlying truths.",
+          "functionTarget": "Ni",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ni_q2",
+          "name": "Ni_Q2",
+          "text": "I am drawn to understanding the deeper, often hidden, meaning and underlying patterns in life and events.",
+          "functionTarget": "Ni",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ni_q3",
+          "name": "Ni_Q3",
+          "text": "My inner thoughts and visions often feel like a very real world inside me.",
+          "functionTarget": "Ni",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ni_q4",
+          "name": "Ni_Q4",
+          "text": "I often think about how current events will unfold into a singular, significant long-term future.",
+          "functionTarget": "Ni",
+          "reverseScored": false
+        },
+        {
+          "id": "likert_ni_q5_rev",
+          "name": "Ni_Q5",
+          "text": "I rarely think about my long-term purpose or a singular future path for my life.",
+          "functionTarget": "Ni",
+          "reverseScored": true
+        },
+        {
+          "id": "likert_ni_q6_rev",
+          "name": "Ni_Q6",
+          "text": "Sudden feelings or inner pictures are not how I usually understand things; I use facts and thinking.",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "sectionType": "binary_attitude",
+      "sectionTitle": "Attitude Preferences (Choose one option per pair)",
+      "questions": [
+        {
+          "id": "binary_att_tite_1",
+          "name": "TiTe_Q1",
+          "text": "When learning something new, which is more important?",
+          "option1Text": "Understanding the underlying principles and why it works.",
+          "option2Text": "Understanding how to use it effectively and achieve a specific goal.",
+          "constructPair": "TiTe"
+        },
+        {
+          "id": "binary_att_tite_2",
+          "name": "TiTe_Q2",
+          "text": "Which do you prioritize more?",
+          "option1Text": "Making sure my understanding is precise and logically consistent, even if it takes more time. The source matters less than its logical soundness.",
+          "option2Text": "Getting things done efficiently and achieving the objective. Using established methods or trusted sources helps.",
+          "constructPair": "TiTe"
+        },
+        {
+          "id": "binary_att_tite_3",
+          "name": "TiTe_Q3",
+          "text": "Where does your strength lie more?",
+          "option1Text": "Analyzing systems, finding logical inconsistencies, and building precise internal models.",
+          "option2Text": "Organizing resources, structuring processes, and implementing plans to meet goals effectively in the real world.",
+          "constructPair": "TiTe"
+        },
+        {
+          "id": "binary_att_fife_1",
+          "name": "FiFe_Q1",
+          "text": "When you hear a friend who's upset, which statement BEST describes your initial reaction?",
+          "option1Text": "I consider how I would feel in that situation and what would be important to me.",
+          "option2Text": "I try to understand what they might be going through and how they might want to be supported.",
+          "constructPair": "FiFe"
+        },
+        {
+          "id": "binary_att_fife_2",
+          "name": "FiFe_Q2",
+          "text": "Which question is more guiding for your decisions?",
+          "option1Text": "Is this decision aligned with my personal values and what feels genuinely right to me? I need to be true to myself.",
+          "option2Text": "How will this decision impact the feelings and well-being of everyone involved? I want to minimize conflict and maintain positive relationships.",
+          "constructPair": "FiFe"
+        },
+        {
+          "id": "binary_att_fife_3",
+          "name": "FiFe_Q3",
+          "text": "Where does your sense of right and wrong primarily come from?",
+          "option1Text": "Deep within, based on what feels personally authentic and true to my core values, even if others don't understand.",
+          "option2Text": "Strongly influenced by the impact on group harmony and considers shared social values or what's appropriate for maintaining positive connections.",
+          "constructPair": "FiFe"
+        },
+        {
+          "id": "binary_att_sise_1",
+          "name": "SiSe_Q1",
+          "text": "How do you typically process your current situation?",
+          "option1Text": "You vividly compare and contrast your current situation with what you've experienced in the past or with what you consider to be normal.",
+          "option2Text": "You pay attention to what's going on around you in the physical world right now.",
+          "constructPair": "SiSe"
+        },
+        {
+          "id": "binary_att_sise_2",
+          "name": "SiSe_Q2",
+          "text": "What context is more important?",
+          "option1Text": "Historical context is important—not only my own personal past, but also traditions, procedures, and laws.",
+          "option2Text": "I focus on observing the concrete facts and details of the immediate situation as they are, without much interpretation or looking for hidden meanings.",
+          "constructPair": "SiSe"
+        },
+        {
+          "id": "binary_att_sise_3",
+          "name": "SiSe_Q3",
+          "text": "Which description fits you better?",
+          "option1Text": "There's a precision to my life, and I notice inconsistencies and details. Rules and precedents exist for a reason.",
+          "option2Text": "I prefer engaging directly with the present moment and responding to immediate opportunities.",
+          "constructPair": "SiSe"
+        },
+        {
+          "id": "binary_att_nine_1",
+          "name": "NiNe_Q1",
+          "text": "How do you typically process information?",
+          "option1Text": "I tend to focus inward to grasp the underlying meaning or future implications, often arriving at a single, core insight or vision.",
+          "option2Text": "I tend to explore outwards, generating numerous possibilities, connections, and potential scenarios based on what I observe.",
+          "constructPair": "NiNe"
+        },
+        {
+          "id": "binary_att_nine_2",
+          "name": "NiNe_Q2",
+          "text": "How do insights typically come to you?",
+          "option1Text": "Insights often emerge suddenly, like an \"aha!\" moment, after a period of unconscious processing, revealing a deeper pattern or future path.",
+          "option2Text": "My mind actively plays with ideas, explores links between seemingly unrelated things, and brainstorms multiple 'what-ifs' about the world around me.",
+          "constructPair": "NiNe"
+        },
+        {
+          "id": "binary_att_nine_3",
+          "name": "NiNe_Q3",
+          "text": "What is your focus when generating ideas?",
+          "option1Text": "I'm focused on my goals or dreams and look inward for ideas to make that future happen.",
+          "option2Text": "I take in new facts from the outside world and connect the dots in imaginative or innovative ways to create new ideas and learning opportunities.",
+          "constructPair": "NiNe"
+        }
+      ]
+    },
+    {
+      "sectionType": "temperament_sorting",
+      "sectionTitle": "Temperament Preferences (Sort BY CLICKING, from MOST to LEAST like you)",
+      "questions": [
+        {
+          "id": "temperament_set1",
+          "name": "temperament_set1_order",
+          "legend": "Core Values and Motivations",
+          "instructionText": "Below are statements describing different priorities people may have in life and work. Please sort them in order from MOST important to LEAST important to you personally by clicking on the descriptions below.",
+          "items": [
+            {"temperament": "SP", "text": "Having the freedom to act spontaneously and make an immediate impact in the moment, experiencing variety and new opportunities."},
+            {"temperament": "SJ", "text": "Maintaining stability and order, fulfilling responsibilities and duties, and upholding traditions and established procedures for the good of the group or community."},
+            {"temperament": "NT", "text": "Acquiring knowledge and expertise, understanding complex systems and ideas, and achieving competence and mastery in areas of interest."},
+            {"temperament": "NF", "text": "Finding meaning and purpose in what I do, fostering harmonious and authentic relationships, and acting in alignment with my personal values and ethics."}
+          ],
+          "slotLabels": ["MOST", "2nd", "3rd", "LEAST"]
+        },
+        {
+          "id": "temperament_set2",
+          "name": "temperament_set2_order",
+          "legend": "Approach to Tasks and Problem Solving",
+          "instructionText": "Imagine you are faced with a challenging task or problem. Below are different approaches someone might take. Please sort them in order from the approach you would be MOST likely to take to the approach you would be LEAST likely to take by clicking on the descriptions below.",
+          "items": [
+            {"temperament": "SP", "text": "Using practical, hands-on approaches, adapting quickly to changing situations, and finding creative and varied solutions in the moment as needed."},
+            {"temperament": "SJ", "text": "Organizing and structuring the task effectively, following established procedures and best practices, and paying close attention to details and accuracy to ensure things are done right."},
+            {"temperament": "NT", "text": "Analyzing the situation strategically and conceptually, developing logical and efficient systems or plans to address the problem, and focusing on understanding the underlying principles at play."},
+            {"temperament": "NF", "text": "Considering the impact on people and relationships, focusing on ethical and value-driven solutions, understanding and addressing the needs and feelings of those involved, and fostering collaboration to find a solution that benefits everyone."}
+          ],
+          "slotLabels": ["MOST", "2nd", "3rd", "LEAST"]
+        }
+      ]
+    },
+    {
+      "sectionType": "overall_orientation",
+      "sectionTitle": "Overall Orientation",
+      "questions": [
+        {
+          "id": "orientation_ie_1",
+          "name": "I_E",
+          "text": "In social situations, do you more often:",
+          "option1Text": "Prefer to wait for others to initiate or be introduced, and engage more when approached.",
+          "option2Text": "Take the lead in initiating conversations, introducing people, and getting things going.",
+          "constructPair": "I_E"
+        },
+        {
+          "id": "orientation_ie_2",
+          "name": "I_E2",
+          "text": "When exploring a new idea, I prefer to:",
+          "option1Text": "Reflecting on it internally, considering different angles before formulating a response or sharing.",
+          "option2Text": "Discussing it openly and dynamically, thinking out loud and reacting to others' input.",
+          "constructPair": "I_E"
+        },
+        {
+          "id": "orientation_ie_3",
+          "name": "I_E3",
+          "text": "When you want to truly grasp a new concept:",
+          "option1Text": "Exploring it through reading, research, and individual reflection.",
+          "option2Text": "Engaging with it through direct experience and active participation.",
+          "constructPair": "I_E"
+        }
+      ]
+    }
+  ]
+}

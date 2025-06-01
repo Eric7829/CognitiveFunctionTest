@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personality Estimator</title> <!-- This will be updated by JS -->
+    <link rel="stylesheet" href="main.css"> <!-- <-- THIS IS CRUCIAL -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+    </style>
+</head>
+<header class="site-header">
+    <div class="header-content">
+        <a href="index.html" class="site-logo">
+            <span class="logo-text">Cosmic Mindscape</span>
+            <span class="logo-icon">✨</span>
+        </a>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Personality Test</a></li>
+                <li class="dropdown">
+                    <a href="#" aria-haspopup="true" aria-expanded="false">Types <span class="dropdown-arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="types/istj.html">ISTJ</a></li>
+                        <li><a href="types/isfj.html">ISFJ</a></li>
+                        <li><a href="types/estj.html">ESTJ</a></li>
+                        <li><a href="types/esfj.html">ESFJ</a></li>
+                        <li><a href="types/istp.html">ISTP</a></li>
+                        <li><a href="types/isfp.html">ISFP</a></li>
+                        <li><a href="types/estp.html">ESTP</a></li>
+                        <li><a href="types/esfp.html">ESFP</a></li>
+                        <li><a href="types/infj.html">INFJ</a></li>
+                        <li><a href="types/intj.html">INTJ</a></li>
+                        <li><a href="types/enfj.html">ENFJ</a></li>
+                        <li><a href="types/entj.html">ENTJ</a></li>
+                        <li><a href="types/infp.html">INFP</a></li>
+                        <li><a href="types/intp.html">INTP</a></li>
+                        <li><a href="types/enfp.html">ENFP</a></li>
+                        <li><a href="types/entp.html">ENTP</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" aria-haspopup="true" aria-expanded="false">Resources <span class="dropdown-arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="resources/theory.html">Theory</a></li>
+                        <li><a href="resources/history.html">History</a></li>
+                        <li><a href="resources/special_thanks.html">Special Thanks</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<body>
+    <div id="title-page">
+        <h1>Jungian Cognitive Function Estimator</h1>
+        <p>Welcome! This tool will help you explore your potential personality type based on Jungian cognitive functions.</p>
+        <button id="start-test-button">Start Test</button>
+    </div>
+
+    <div id="test-area" style="display:none;">
+        <!-- Progress Bar -->
+        <div id="progress-container">
+            <div id="progress-bar"><span id="progress-text">0%</span></div>
+        </div>
+
+        <div id="question-container">
+            <!-- Questions will be dynamically inserted here -->
+        </div>
+
+        <!-- Clear Test Button is inside the main scrollable area -->
+        <button id="clear-test-button">Clear Test & Start Over</button>
+    </div>
+
+    <div id="results-panel" style="display:none;">
+        <!-- Results will be dynamically inserted here -->
+        <div id="results-loading" style="display:none;">
+            <p>Calculating your results...</p>
+        </div>
+        <div id="results-content">
+            <!-- Actual results content -->
+        </div>
+    </div>
+
+    <!-- Hidden template for Temperament Sorter -->
+    <div id="temperament-sorter-template" style="display:none;">
+        <fieldset class="temperament-sorter">
+            <legend class="ts-legend"></legend>
+            <div class="question-group">
+                <!-- ts-q-number removed from template as it's added dynamically now -->
+                <p><span class="ts-instruction"></span></p>
+                <div class="sort-container">
+                    <div class="sorted-area">
+                        <!-- Slots will be populated -->
+                    </div>
+                    <div class="unsorted-area">
+                        <!-- Items will be populated -->
+                    </div>
+                    <button type="button" class="reset-sort-button">Reset This Question</button>
+                    <input type="hidden" class="ts-hidden-order" name="" value="">
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <!-- Fixed navigation buttons at the bottom -->
+    <div id="navigation-buttons" style="display:none;">
+        <button id="prev-button" style="display:none;">Previous</button>
+        <button id="next-button">Next</button>
+        <button id="calculate-button" style="display:none;">Calculate My Type</button>
+    </div>
+
+
+    <script src="app.js"></script>
+    <script src="score_calculator.js"></script>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section footer-brand">
+                <h3>Cosmic Mindscape ✨</h3>
+                <p class="project-tagline">Exploring the constellations of personality.</p>
+                <p class="student-credit">A Grade 11 Student Project by Eric Zhao</p>
+            </div>
+            <div class="footer-section footer-contact">
+                <h3>Contact the Creator</h3>
+                <ul>
+                    <li><a href="mailto:349080838@gapps.yrdsb.ca">Email: 349080838@gapps.yrdsb.ca</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-info-line">
+            <p>© 2025 ISP Project.</p>
+        </div>
+    </footer>
+</body>
+</html>
