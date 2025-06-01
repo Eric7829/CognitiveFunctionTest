@@ -1,0 +1,524 @@
+/* General styling for the page */
+/* NEW Cosmic Theme Variables - Copied from index.html's Type.css */
+:root {
+    /* Backgrounds */
+    --bg-deep-space: #070a18; /* Very dark blue/purple, base for body */
+    --bg-nebula-soft: #10142c; /* Slightly lighter for containers */
+    --bg-interactive-hover: rgba(77, 136, 255, 0.1); /* Subtle hover background */
+
+    /* Text */
+    --text-primary: #e0e5f0; /* Light cool grey/off-white */
+    --text-secondary: #a8b2d1; /* Softer grey for less emphasis */
+    --text-heading: #d9def0; /* Bright for headings */
+    --text-link: #61dafb; /* Bright cyan for links */
+    --text-link-hover: #9efbff;
+
+    /* Accents & Borders */
+    --accent-primary: #61dafb; /* Bright "electric" blue/cyan */
+    --accent-secondary: #9f79ff; /* Cosmic violet/purple */
+    --accent-glow: rgba(97, 218, 251, 0.5); /* Glow for primary accent */
+    --border-color: rgba(97, 218, 251, 0.3); /* Subtle border color */
+    --border-color-medium: rgba(159, 121, 255, 0.4);
+
+    /* Function Node Base Colors (not directly applicable to INFP page cognitive function component's internal logic, but good to have for consistency) */
+    --fn-ni: #6A0DAD;
+    --fn-ne: #FF6AC1;
+    --fn-si: #B8860B;
+    --fn-se: #FF4500;
+    --fn-ti: #778899;
+    --fn-te: #1E90FF;
+    --fn-fi: #DA70D6;
+    --fn-fe: #3CB371;
+
+    /* UI Specific - relevant for Cognitive Function Carousel nav items, but sourced from test */
+    --button-bg: var(--accent-primary);
+    --button-text: #070a18;
+    --button-hover-bg: var(--text-link-hover);
+    --button-glow: var(--accent-glow);
+
+    /* Likert specific colors from test, not applicable to INFP page */
+    --likert-1: #5c67f2;
+    --likert-4: #a8b2d1;
+    --likert-7: #ffeb3b;
+    --likert-selected-glow: #ffffff;
+    --likert-1-color: color-mix(in srgb, var(--likert-1) 80%, black);
+    --likert-2-color: color-mix(in srgb, var(--likert-1) 60%, var(--likert-4) 40%);
+    --likert-3-color: color-mix(in srgb, var(--likert-1) 40%, var(--likert-4) 60%);
+    --likert-5-color: color-mix(in srgb, var(--likert-7) 40%, var(--likert-4) 60%);
+    --likert-6-color: color-mix(in srgb, var(--likert-7) 60%, var(--likert-4) 40%);
+    --likert-7-color: color-mix(in srgb, var(--likert-7) 80%, black);
+
+    /* Fonts */
+    --font-body: 'Proxima Nova', sans-serif;
+    --font-heading: 'Orbitron', sans-serif; /* Using Orbitron for headings to match the test's theme */
+
+    /* Temperament Item Colors (not directly applicable to INFP page) */
+    --temperament-sj-bg: rgba(100, 140, 147, 0.75);
+    --temperament-sp-bg: rgba(200, 160, 0, 0.75);
+    --temperament-nt-bg: rgba(180, 170, 190, 0.7);
+    --temperament-nf-bg: rgba(80, 138, 120, 0.75);
+}
+
+html {
+    scroll-behavior: smooth; /* Fallback smooth scroll for anchors if JS fails */
+}
+
+/* Font Imports to support the new theme fonts */
+/* Orbitron is imported in infp.html directly from Google Fonts */
+@font-face {
+    font-family: 'Proxima Nova'; /* Choose your desired font name */
+    src: url('proximanova_light.otf') format('opentype'); /* Assuming this file is available in the assets/fonts or root */
+    font-weight: normal; /* Specify weight  */
+    font-style: normal; /* Specify style*/
+    font-display: swap; /* Recommended for controlling loading behavior */
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-body); /* Changed to Proxima Nova */
+    background-color: var(--bg-deep-space); /* Changed to cosmic background */
+    color: var(--text-primary); /* Changed to primary text color */
+    line-height: 1.7; /* Increased line height for better readability */
+}
+
+.page-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    transition: margin-left 0.3s ease; /* For responsive TOC adjustment */
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.page-header h1 {
+    font-size: 2.8em;
+    font-family: var(--font-heading); /* Changed to Orbitron */
+    color: var(--text-heading); /* Changed to heading text color */
+    margin-bottom: 0.2em;
+    text-shadow: 0 0 15px var(--accent-primary); /* Added blue glow */
+}
+
+.page-header .tagline {
+    font-size: 1.1em;
+    color: var(--text-secondary); /* Changed to secondary text color */
+    font-style: italic;
+}
+
+.main-content section {
+    background-color: var(--bg-nebula-soft); /* Changed to nebula soft background */
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color); /* Added subtle border */
+}
+
+.main-content section h2 {
+    font-size: 1.8em;
+    font-family: var(--font-heading); /* Changed to Orbitron */
+    color: var(--text-heading); /* Changed to heading text color */
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    text-shadow: 0 0 8px var(--accent-secondary); /* Added violet glow */
+}
+
+.main-content section p {
+    margin-bottom: 15px;
+    color: var(--text-primary); /* Changed to primary text color */
+}
+
+.main-content section ul {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin-bottom: 15px;
+    color: var(--text-primary); /* Changed to primary text color */
+}
+
+.main-content section li {
+    margin-bottom: 8px;
+    color: var(--text-primary); /* Ensure list items also use primary text color */
+}
+
+.highlight {
+    color: var(--accent-primary); /* Changed to primary accent color */
+    font-weight: bold;
+}
+
+.function-summary {
+    margin-top: 20px;
+    font-style: italic;
+    color: var(--text-secondary); /* Changed to secondary text color */
+}
+
+
+/* Cognitive Function Component Specific Styles */
+.cognitive-functions-section {
+    /* Container for the component on the main page */
+}
+
+.cognitive-function-component {
+    width: 100%; /* Takes full width of its parent section */
+    background-color: var(--bg-deep-space); /* Deeper background for the component itself */
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px; /* Space above component */
+    border: 1px solid var(--border-color-medium); /* Stronger border for component */
+}
+
+.header-section {
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.function-title-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.function-icon {
+    font-size: 2.8em;
+    line-height: 1;
+    color: var(--accent-primary); /* Icon color matching accent */
+    text-shadow: 0 0 10px var(--accent-glow); /* Glow for the icon */
+}
+
+.function-heading {
+    margin: 0;
+    font-size: 2.1em;
+    font-weight: bold;
+    font-family: var(--font-heading); /* Changed to Orbitron */
+    color: var(--text-heading); /* Changed to heading text color */
+    text-shadow: 0 0 8px var(--accent-secondary); /* Violet glow for heading */
+}
+
+.function-label {
+    background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary)); /* Cosmic gradient for label */
+    padding: 6px 14px;
+    border-radius: 18px;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--button-text); /* Dark text on bright button */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 10px var(--accent-glow); /* Added glow */
+}
+
+.content-scroll-container {
+    overflow: hidden;
+    flex-grow: 1;
+    position: relative;
+}
+
+.functions-carousel {
+    display: flex;
+    width: fit-content;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.function-page {
+    flex-shrink: 0;
+    /* width is set by JS */
+    box-sizing: border-box;
+    padding: 25px 33px 25px 25px;
+    overflow-y: auto;
+    max-height: 350px; /* Adjust height as needed */
+    line-height: 1.7; /* Increased line height */
+    font-size: 0.95em;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    color: var(--text-primary); /* Primary text color for body text */
+}
+
+.function-page::-webkit-scrollbar {
+    width: 8px;
+    background-color: var(--bg-nebula-soft); /* Scrollbar track matching component bg */
+    border-radius: 4px;
+}
+
+.function-page::-webkit-scrollbar-thumb {
+    background-color: var(--accent-secondary); /* Cosmic violet thumb */
+    border-radius: 4px;
+    border: 1px solid var(--border-color); /* Subtle border */
+}
+
+.function-page::-webkit-scrollbar-track {
+    background-color: var(--bg-nebula-soft);
+    border-radius: 4px;
+}
+
+.body-text {
+    margin-bottom: 20px;
+}
+
+.how-to-develop-heading {
+    font-size: 1.1em;
+    font-weight: bold;
+    font-family: var(--font-heading); /* Changed to Orbitron */
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: var(--text-heading); /* Heading text color */
+}
+
+.how-to-develop-text {
+    line-height: 1.6; /* Slightly reduced for list-like text */
+    margin-bottom: 25px;
+}
+
+.auxiliary-text {
+    font-size: 0.88em;
+    line-height: 1.5;
+    background-color: rgba(0,0,0,0.4); /* Darker transparent background */
+    padding: 15px;
+    border-radius: 8px;
+    color: var(--text-secondary); /* Secondary text color */
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px dashed var(--border-color); /* Dashed border for auxiliary info */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+}
+
+.auxiliary-text::before {
+    content: '💡';
+    font-size: 1.2em;
+    line-height: 1;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 5px var(--accent-primary)); /* Glow for the emoji */
+}
+
+.navigation-bar {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    background-color: rgba(7, 10, 24, 0.8); /* Darker transparent background for nav bar */
+    border-top: 1px solid var(--border-color);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    user-select: none;
+    position: relative;
+}
+
+.nav-item:hover {
+    background-color: var(--bg-interactive-hover); /* Subtle interactive hover background */
+}
+
+.nav-item.active {
+    box-shadow: 0 0 10px var(--accent-primary), /* Changed to primary accent for active glow */
+    0 0 20px var(--accent-glow); /* Changed to primary accent glow */
+    background-color: rgba(97, 218, 251, 0.15); /* Subtle primary accent background */
+    transform: translateY(-2px);
+}
+
+.nav-item .nav-label {
+    font-size: 1.1em;
+    font-weight: bold;
+    font-family: var(--font-heading); /* Changed to Orbitron */
+    color: var(--text-heading); /* Heading text color */
+}
+
+.nav-item .nav-number {
+    font-size: 0.8em;
+    color: var(--text-secondary); /* Secondary text color */
+    margin-top: 3px;
+}
+
+.mouse-cursor {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 10px solid var(--accent-primary); /* Changed to primary accent color */
+    position: absolute; /* Relative to cognitive-function-component */
+    transition: left 0.3s ease-out, top 0.3s ease-out, opacity 0.2s;
+    opacity: 0; /* Hidden by default, made visible by JS */
+    pointer-events: none; /* So it doesn't interfere with clicks */
+    z-index: 10;
+    transform: rotate(180deg) translateY(-3px); /* Flips it to point down */
+    filter: drop-shadow(0 0 5px var(--accent-glow)); /* Added glow to the cursor */
+}
+
+/* TOC Sidebar Styles */
+.toc-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 230px; /* Adjusted width */
+    height: 100vh;
+    background-color: var(--bg-deep-space); /* Deep space background */
+    border-right: 1px solid var(--border-color);
+    padding: 25px; /* Overall padding */
+    padding-top: 40px; /* More space at the top */
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: 1000; /* Above other content */
+    display: none; /* Hidden by default, JS/CSS will show it */
+    transition: transform 0.3s ease;
+}
+
+.toc-sidebar h3 { /* TOC Title */
+    font-size: 1.3em;
+    font-family: var(--font-heading); /* Changed to Orbitron */
+    color: var(--text-heading); /* Heading text color */
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    text-shadow: 0 0 8px var(--accent-secondary); /* Violet glow */
+}
+
+.toc-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-sidebar li a {
+    display: block;
+    padding: 9px 12px; /* Clickable area */
+    color: var(--text-secondary); /* Secondary text color for links */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease, border-left-color 0.2s ease, padding-left 0.2s ease;
+    border-left: 3px solid transparent; /* For active state */
+    margin-bottom: 7px;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.toc-sidebar li a:hover {
+    background-color: var(--bg-interactive-hover); /* Interactive hover background */
+    color: var(--text-link-hover); /* Brighter link hover color */
+    padding-left: 15px; /* Indent on hover */
+}
+
+.toc-sidebar li a.active {
+    background-color: rgba(97, 218, 251, 0.15); /* Subtle primary accent background */
+    color: var(--accent-primary); /* Primary accent color for active link */
+    font-weight: 600; /* Bolder active text */
+    border-left: 3px solid var(--accent-primary); /* Primary accent border */
+    padding-left: 15px; /* Keep indent */
+}
+
+/* Custom scrollbar for TOC */
+.toc-sidebar::-webkit-scrollbar {
+    width: 7px;
+}
+.toc-sidebar::-webkit-scrollbar-track {
+    background: var(--bg-deep-space); /* Match sidebar bg */
+    border-radius: 10px;
+}
+.toc-sidebar::-webkit-scrollbar-thumb {
+    background: var(--accent-secondary); /* Cosmic violet thumb */
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+.toc-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary); /* Primary accent on hover */
+}
+
+
+.page-footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary); /* Secondary text color */
+    font-size: 0.9em;
+}
+
+/* Responsive adjustments */
+@media (min-width: 993px) { /* When TOC is visible */
+    body.body-has-toc .toc-sidebar {
+        display: block; /* Show TOC */
+    }
+    body.body-has-toc .page-wrapper {
+        margin-left: calc(230px + 240px); /* TOC width (230px) + NEW gap (240px) */
+    }
+}
+
+@media (max-width: 992px) { /* TOC is hidden */
+    body.body-has-toc .toc-sidebar {
+        display: none;
+    }
+    body.body-has-toc .page-wrapper {
+        margin-left: auto; /* Revert to centering */
+        margin-right: auto;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 2.2em;
+    }
+    .page-header .tagline {
+        font-size: 1em;
+    }
+    .main-content section h2 {
+        font-size: 1.6em;
+    }
+    .function-icon {
+        font-size: 2.2em;
+    }
+    .function-heading {
+        font-size: 1.8em;
+    }
+    .function-label {
+        font-size: 0.8em;
+        padding: 5px 10px;
+    }
+    .nav-item .nav-label {
+        font-size: 1em;
+    }
+    /* Ensure page-wrapper is full width or centered correctly without TOC margin */
+    .page-wrapper {
+        margin-left: auto !important; /* Override if body-has-toc was applied */
+        margin-right: auto !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-wrapper {
+        padding: 10px;
+    }
+    .main-content section {
+        padding: 15px;
+    }
+    .header-section {
+        padding: 15px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .function-title-area {
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+    }
+    .function-page {
+        padding: 15px;
+        max-height: 300px;
+    }
+}
