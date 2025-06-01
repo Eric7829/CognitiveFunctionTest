@@ -406,9 +406,9 @@ window.calculateAndFormatScores = function(userAnswers, allQuestionsList) {
         stack.forEach((func, i) => { // i = 0 (Dom), 1 (Aux), 2 (Tert), 3 (Inf)
             const currentScore = finalFunctionScores[func] !== undefined ? finalFunctionScores[func] : MIN_SCORE_CLAMP;
             let weight = 0;
-            if (i === 0) weight = 5;      // Dominant
-            else if (i === 1) weight = 2.5; // Auxiliary
-            else if (i === 2) weight = 1; // Tertiary
+            if (i === 0) weight = 6;      // Dominant
+            else if (i === 1) weight = 3; // Auxiliary
+            else if (i === 2) weight = 1.5; // Tertiary
             else if (i === 3) weight = 0.5; // Inferior
             else return;
 
