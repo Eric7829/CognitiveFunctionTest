@@ -1,5 +1,3 @@
-
-
 html {
     scroll-behavior: smooth; /* Make all programmatic scrolling smooth */
     /* Adjusted padding-top to accommodate the fixed progress bar */
@@ -43,16 +41,27 @@ html {
     --button-hover-bg: var(--text-link-hover);
     --button-glow: var(--accent-glow);
 
-    --likert-1: #5c67f2; /* Cool dim */
-    --likert-4: #a8b2d1; /* Neutral */
-    --likert-7: #ffeb3b; /* Warm bright */
-    --likert-selected-glow: #ffffff;
-    --likert-1-color: color-mix(in srgb, var(--likert-1) 80%, black);
-    --likert-2-color: color-mix(in srgb, var(--likert-1) 60%, var(--likert-4) 40%);
-    --likert-3-color: color-mix(in srgb, var(--likert-1) 40%, var(--likert-4) 60%);
-    --likert-5-color: color-mix(in srgb, var(--likert-7) 40%, var(--likert-4) 60%);
-    --likert-6-color: color-mix(in srgb, var(--likert-7) 60%, var(--likert-4) 40%);
-    --likert-7-color: color-mix(in srgb, var(--likert-7) 80%, black);
+    --likert-disagree-strong: hsl(0, 75%, 58%);    /* Vibrant Red for Strong Disagree */
+    --likert-agree-strong: hsl(122, 60%, 50%);     /* Vibrant Green for Strong Agree */
+    --likert-neutral: hsl(0, 0%, 78%);          /* Light Grey for Neutral */
+    --likert-selected-glow: #ffffff; /* Keep white glow for selected item BORDER */
+
+    /* New color scale: Red (Disagree) -> Grey (Neutral) -> Green (Agree) */
+    /* Value 1 (Strongly Disagree) is leftmost, Value 7 (Strongly Agree) is rightmost */
+    --likert-1-color: var(--likert-disagree-strong);
+    --likert-2-color: color-mix(in srgb, var(--likert-disagree-strong) 67%, var(--likert-neutral) 33%);
+    --likert-3-color: color-mix(in srgb, var(--likert-disagree-strong) 33%, var(--likert-neutral) 67%);
+    --likert-4-color: var(--likert-neutral); /* This is the middle, neutral option */
+    --likert-5-color: color-mix(in srgb, var(--likert-agree-strong) 33%, var(--likert-neutral) 67%);
+    --likert-6-color: color-mix(in srgb, var(--likert-agree-strong) 67%, var(--likert-neutral) 33%);
+    --likert-7-color: var(--likert-agree-strong);
+
+    /* CSS Variables for dynamic Likert checked glow */
+    --current-likert-glow1: var(--likert-selected-glow); /* Default, overridden by specific checked item */
+    --current-likert-glow2-mix: color-mix(in srgb, var(--likert-selected-glow) 50%, transparent);
+    --current-likert-pulse-glow1: var(--likert-selected-glow);
+    --current-likert-pulse-glow2-mix: color-mix(in srgb, var(--likert-selected-glow) 30%, transparent);
+
 
     /* Fonts */
     --font-body: 'Proxima Nova', sans-serif;
@@ -219,7 +228,7 @@ legend {
     align-items: center; /* Vertically align */
     gap: 12px; /* Spacing between buttons */
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    margin-top: 20px;
+    /* margin-top: 20px; /* Removed, as .likert-scale-container has it */
 }
 
 .likert-options label {
@@ -234,49 +243,55 @@ legend {
 }
 
 .likert-visual {
-    display: inline-flex; /* Use flex to center number */
-    align-items: center;
-    justify-content: center;
+    display: inline-block; /* Changed from inline-flex as content is removed */
     border-radius: 50%;
-    font-family: var(--font-heading);
-    font-weight: bold;
-    color: #fff; /* Default text color on buttons */
-    background-color: rgba(128,128,128, 0.5); /* Dim grey default */
-    border: 2px solid transparent; /* For checked state */
+    background-color: rgba(128,128,128, 0.5); /* Dim grey default for unstyled/fallback */
+    border: 2px solid transparent; /* For checked state border highlights */
     transition: all 0.25s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Elastic transition */
     box-sizing: border-box; /* Include border in size */
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
 
-/* Size Variations & Base Colors (Cool to Warm Gradient) */
-.likert-options input[value="1"] + .likert-visual { width: 40px; height: 40px; font-size: 1.05em; background-color: var(--likert-1-color); color: #fff; border-color: color-mix(in srgb, var(--likert-1-color) 70%, black); }
-.likert-options input[value="2"] + .likert-visual { width: 43px; height: 43px; font-size: 1.15em; background-color: var(--likert-2-color); color: #fff; border-color: color-mix(in srgb, var(--likert-2-color) 70%, black); }
-.likert-options input[value="3"] + .likert-visual { width: 46px; height: 46px; font-size: 1.25em; background-color: var(--likert-3-color); color: #fff; border-color: color-mix(in srgb, var(--likert-3-color) 70%, black); }
-.likert-options input[value="4"] + .likert-visual { width: 50px; height: 50px; font-size: 1.35em; background-color: var(--likert-4); color: #000; border-color: color-mix(in srgb, var(--likert-4) 70%, black); } /* Neutral */
-.likert-options input[value="5"] + .likert-visual { width: 54px; height: 54px; font-size: 1.45em; background-color: var(--likert-5-color); color: #000; border-color: color-mix(in srgb, var(--likert-5-color) 70%, black); }
-.likert-options input[value="6"] + .likert-visual { width: 58px; height: 58px; font-size: 1.55em; background-color: var(--likert-6-color); color: #000; border-color: color-mix(in srgb, var(--likert-6-color) 70%, black); }
-.likert-options input[value="7"] + .likert-visual { width: 62px; height: 62px; font-size: 1.65em; background-color: var(--likert-7-color); color: #000; border-color: color-mix(in srgb, var(--likert-7-color) 70%, black); }
-/* Hover Effect (Illuminate) */
+/* New Size Variations & New Colors & Hover Glow Variable Definition */
+.likert-options input[value="1"] + .likert-visual { width: 62px; height: 62px; background-color: var(--likert-1-color); border-color: color-mix(in srgb, var(--likert-1-color) 70%, black); --likert-hover-glow-color: color-mix(in srgb, var(--likert-1-color) 60%, transparent); }
+.likert-options input[value="2"] + .likert-visual { width: 54px; height: 54px; background-color: var(--likert-2-color); border-color: color-mix(in srgb, var(--likert-2-color) 70%, black); --likert-hover-glow-color: color-mix(in srgb, var(--likert-2-color) 60%, transparent); }
+.likert-options input[value="3"] + .likert-visual { width: 46px; height: 46px; background-color: var(--likert-3-color); border-color: color-mix(in srgb, var(--likert-3-color) 70%, black); --likert-hover-glow-color: color-mix(in srgb, var(--likert-3-color) 60%, transparent); }
+.likert-options input[value="4"] + .likert-visual { width: 40px; height: 40px; background-color: var(--likert-4-color); border-color: color-mix(in srgb, var(--likert-4-color) 70%, black); --likert-hover-glow-color: color-mix(in srgb, var(--likert-4-color) 60%, transparent); }
+.likert-options input[value="5"] + .likert-visual { width: 46px; height: 46px; background-color: var(--likert-5-color); border-color: color-mix(in srgb, var(--likert-5-color) 70%, black); --likert-hover-glow-color: color-mix(in srgb, var(--likert-5-color) 60%, transparent); }
+.likert-options input[value="6"] + .likert-visual { width: 54px; height: 54px; background-color: var(--likert-6-color); border-color: color-mix(in srgb, var(--likert-6-color) 70%, black); --likert-hover-glow-color: color-mix(in srgb, var(--likert-6-color) 60%, transparent); }
+.likert-options input[value="7"] + .likert-visual { width: 62px; height: 62px; background-color: var(--likert-7-color); border-color: color-mix(in srgb, var(--likert-7-color) 70%, black); --likert-hover-glow-color: color-mix(in srgb, var(--likert-7-color) 60%, transparent); }
+
+/* Hover Effect (Illuminate with specific color) */
 .likert-options label:hover .likert-visual {
     transform: scale(1.25); /* Larger transform on hover */
-    box-shadow: 0 0 15px 3px var(--accent-glow); /* Stronger glow */
+    box-shadow: 0 0 12px 4px var(--likert-hover-glow-color, var(--accent-glow)); /* Use specific color, fallback to generic cyan */
 }
 
-/* Checked State - Intense Glow & Pulse */
+/* Set CSS variables for checked glow based on specific value */
+.likert-options input[value="1"]:checked + .likert-visual { --current-likert-glow1: var(--likert-1-color); --current-likert-glow2-mix: color-mix(in srgb, var(--likert-1-color) 50%, transparent); --current-likert-pulse-glow1: var(--likert-1-color); --current-likert-pulse-glow2-mix: color-mix(in srgb, var(--likert-1-color) 30%, transparent); }
+.likert-options input[value="2"]:checked + .likert-visual { --current-likert-glow1: var(--likert-2-color); --current-likert-glow2-mix: color-mix(in srgb, var(--likert-2-color) 50%, transparent); --current-likert-pulse-glow1: var(--likert-2-color); --current-likert-pulse-glow2-mix: color-mix(in srgb, var(--likert-2-color) 30%, transparent); }
+.likert-options input[value="3"]:checked + .likert-visual { --current-likert-glow1: var(--likert-3-color); --current-likert-glow2-mix: color-mix(in srgb, var(--likert-3-color) 50%, transparent); --current-likert-pulse-glow1: var(--likert-3-color); --current-likert-pulse-glow2-mix: color-mix(in srgb, var(--likert-3-color) 30%, transparent); }
+.likert-options input[value="4"]:checked + .likert-visual { --current-likert-glow1: var(--likert-4-color); --current-likert-glow2-mix: color-mix(in srgb, var(--likert-4-color) 50%, transparent); --current-likert-pulse-glow1: var(--likert-4-color); --current-likert-pulse-glow2-mix: color-mix(in srgb, var(--likert-4-color) 30%, transparent); }
+.likert-options input[value="5"]:checked + .likert-visual { --current-likert-glow1: var(--likert-5-color); --current-likert-glow2-mix: color-mix(in srgb, var(--likert-5-color) 50%, transparent); --current-likert-pulse-glow1: var(--likert-5-color); --current-likert-pulse-glow2-mix: color-mix(in srgb, var(--likert-5-color) 30%, transparent); }
+.likert-options input[value="6"]:checked + .likert-visual { --current-likert-glow1: var(--likert-6-color); --current-likert-glow2-mix: color-mix(in srgb, var(--likert-6-color) 50%, transparent); --current-likert-pulse-glow1: var(--likert-6-color); --current-likert-pulse-glow2-mix: color-mix(in srgb, var(--likert-6-color) 30%, transparent); }
+.likert-options input[value="7"]:checked + .likert-visual { --current-likert-glow1: var(--likert-7-color); --current-likert-glow2-mix: color-mix(in srgb, var(--likert-7-color) 50%, transparent); --current-likert-pulse-glow1: var(--likert-7-color); --current-likert-pulse-glow2-mix: color-mix(in srgb, var(--likert-7-color) 30%, transparent); }
+
+/* Checked State - Intense Glow & Pulse (using dynamic CSS variables for color) */
 .likert-options input[type="radio"]:checked + .likert-visual {
-    border-color: var(--likert-selected-glow);
-    box-shadow: 0 0 10px 3px var(--likert-selected-glow), 0 0 20px 6px color-mix(in srgb, var(--likert-selected-glow) 50%, transparent);
+    border-color: var(--likert-selected-glow); /* Keep border white for contrast */
+    box-shadow: 0 0 10px 3px var(--current-likert-glow1), 0 0 20px 6px var(--current-likert-glow2-mix);
     transform: scale(1.15); /* Slightly larger when selected */
     animation: cosmicPulse 1.8s infinite ease-in-out;
 }
+
 /* Ensure focused state is visible on custom element */
 .likert-options input[type="radio"]:focus-visible + .likert-visual {
     outline: 3px solid var(--accent-primary); /* More visible focus */
     outline-offset: 4px;
 }
+
 @keyframes cosmicPulse {
-    0%, 100% { box-shadow: 0 0 10px 3px var(--likert-selected-glow), 0 0 20px 6px color-mix(in srgb, var(--likert-selected-glow) 50%, transparent); }
-    50% { box-shadow: 0 0 15px 5px var(--likert-selected-glow), 0 0 30px 10px color-mix(in srgb, var(--likert-selected-glow) 30%, transparent); }
+    0%, 100% { box-shadow: 0 0 10px 3px var(--current-likert-glow1), 0 0 20px 6px var(--current-likert-glow2-mix); }
+    50% { box-shadow: 0 0 15px 5px var(--current-likert-pulse-glow1), 0 0 30px 10px var(--current-likert-pulse-glow2-mix); }
 }
 
 
@@ -970,6 +985,15 @@ button:active,
         /* Reset sizes or adjust if needed for vertical layout */
         width: 30px; height: 30px; font-size: 1em;
     }
+    /* Adjust sizes specifically for vertical layout if needed */
+    .likert-options input[value="1"] + .likert-visual,
+    .likert-options input[value="7"] + .likert-visual { width: 34px; height: 34px; }
+    .likert-options input[value="2"] + .likert-visual,
+    .likert-options input[value="6"] + .likert-visual { width: 32px; height: 32px; }
+    .likert-options input[value="3"] + .likert-visual,
+    .likert-options input[value="5"] + .likert-visual { width: 30px; height: 30px; }
+    .likert-options input[value="4"] + .likert-visual { width: 28px; height: 28px; }
+
 
     /* Temperament Unsorted Grid */
     .unsorted-area {
@@ -1401,4 +1425,43 @@ button:active,
 .explore-type-button:active {
     transform: translateY(0px) scale(0.97);
     box-shadow: 0 0 5px 2px var(--button-glow), inset 0 0 8px rgba(0,0,0,0.3);
+}
+/* --- Likert Scale Container (Holds Text Labels and Circles) --- */
+.likert-scale-container {
+    display: flex; /* Use flexbox to align items horizontally */
+    align-items: center; /* Vertically align the text and the circles */
+    justify-content: center; /* Center the entire group horizontally */
+    gap: 15px; /* Space between the text labels and the circle container */
+    flex-wrap: wrap; /* Allow the items to wrap if needed on small screens */
+    margin-top: 20px; /* Add some space above the scale */
+}
+
+/* --- Likert Text Label Styles --- */
+.likert-label {
+    font-size: 1.1em; /* Make text slightly larger */
+    font-weight: bold;
+    /* color: var(--text-primary); /* Default color - will override below */
+    min-width: 80px; /* Give text labels a minimum width */
+    flex-shrink: 0; /* Prevent text labels from shrinking */
+}
+
+/* Style for the Disagree label (Left) */
+.likert-label-disagree {
+    color: var(--likert-disagree-strong); /* Use the strong disagree color */
+    text-align: right; /* Align text to the right, towards the circles */
+}
+
+/* Style for the Agree label (Right) */
+.likert-label-agree {
+    color: var(--likert-agree-strong); /* Use the strong agree color */
+    text-align: left; /* Align text to the left, towards the circles */
+}
+
+/* Adjust existing .likert-options rule */
+.likert-options {
+    display: flex; /* Keep flex for arranging circles */
+    justify-content: center; /* Keep centering circles within their container */
+    align-items: center; /* Keep vertical alignment for circles */
+    gap: 12px; /* Keep spacing between circles */
+    flex-wrap: wrap; /* Allow circles to wrap */
 }

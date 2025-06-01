@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            document.title = data.testTitle || "Cosmic Mindscape Personality Test"; // Set page title
+            document.title = data.testTitle || "Personality Estimator"; // Set page title
             titlePage.querySelector('h1').textContent = data.testTitle;
 
             // Flatten questions and add section info
@@ -207,16 +207,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const qDiv = document.createElement('div');
         qDiv.className = 'question-group';
         qDiv.innerHTML = `
-            <p><strong>${question.text}</strong></p>
-            <div class="likert-options" id="${question.id}">
+        <p><strong>${question.text}</strong></p>
+        <div class="likert-scale-container"> 
+            <span class="likert-label likert-label-disagree">Disagree</span> 
+            <div class="likert-options" id="${question.id}"> 
                 ${[1,2,3,4,5,6,7].map(val => `
                     <label>
                         <input type="radio" name="${question.name}" value="${val}" ${userAnswers[question.name] == val ? 'checked' : ''} required>
-                        <span class="likert-visual">${val}</span>
+                        <span class="likert-visual"></span>
                     </label>
                 `).join('')}
             </div>
-        `;
+            <span class="likert-label likert-label-agree">Agree</span> 
+        </div> 
+    `;
         return qDiv;
     }
 

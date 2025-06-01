@@ -6,7 +6,6 @@
 const functions = ['Si', 'Se', 'Ni', 'Ne', 'Ti', 'Te', 'Fi', 'Fe'];
 
 // Maps MBTI types to their function stack (Dominant, Auxiliary, Tertiary, Inferior)
-// This definition is pasted from the original script and assumed to be correct.
 const typeFunctionStacks = {
     'ISTJ': ['Si', 'Te', 'Fi', 'Ne'], 'ISFJ': ['Si', 'Fe', 'Ti', 'Ne'],
     'ESTJ': ['Te', 'Si', 'Ne', 'Fi'], 'ESFJ': ['Fe', 'Si', 'Ne', 'Ti'],
@@ -44,12 +43,12 @@ const ATTITUDE_PAIR_FUNCTIONS = {
 
 // Defines the percentage of a score to transfer between functions in an attitude pair,
 // based on the difference in preference counts from binary attitude questions.
-// Aligned with script.js: { 3: 0.2, 1: 0.1 }
-// A difference of 3 in counts means 20% transfer, a difference of 1 means 10% transfer.
+// Aligned with script.js: { 3: 0.15, 1: 0.075 }
+// A difference of 3 in counts means 15% transfer, a difference of 1 means 7.5% transfer.
 const ATTITUDE_TRANSFER_PERCENTAGES = {
-    1: 0.1, // 1 difference, 10% transfer
-    3: 0.2  // 3 difference, 20% transfer
-    // A difference of 0 or 2 results in 0% transfer (implicitly, or handled by logic).
+    1: 0.075, // 1 difference, 7.5% transfer
+    3: 0.15  // 3 difference, 15% transfer
+    // A difference of 0 results in 0% transfer (implicitly, or handled by logic).
 };
 
 // Defines pairs of functions for the intra-pair suppression mechanism.
@@ -407,10 +406,10 @@ window.calculateAndFormatScores = function(userAnswers, allQuestionsList) {
         stack.forEach((func, i) => { // i = 0 (Dom), 1 (Aux), 2 (Tert), 3 (Inf)
             const currentScore = finalFunctionScores[func] !== undefined ? finalFunctionScores[func] : MIN_SCORE_CLAMP;
             let weight = 0;
-            if (i === 0) weight = 6;      // Dominant
-            else if (i === 1) weight = 5; // Auxiliary
-            else if (i === 2) weight = 3; // Tertiary
-            else if (i === 3) weight = 1; // Inferior
+            if (i === 0) weight = 5;      // Dominant
+            else if (i === 1) weight = 2.5; // Auxiliary
+            else if (i === 2) weight = 1; // Tertiary
+            else if (i === 3) weight = 0.5; // Inferior
             else return;
 
             let penalty = 0.0;
