@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            document.title = data.testTitle || "Personality Estimator"; // Set page title
+            document.title = data.testTitle || "Cosmic Mindscape Personality Test"; // Set page title
             titlePage.querySelector('h1').textContent = data.testTitle;
 
             // Flatten questions and add section info
