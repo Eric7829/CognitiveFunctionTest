@@ -1116,6 +1116,7 @@ button:active,
     padding: 0;
     display: flex; /* Make main nav items horizontal */
     gap: 30px; /* Space between main nav items */
+    flex-wrap: wrap; /* ADD THIS LINE */
 }
 
 .main-nav li {
@@ -1263,6 +1264,7 @@ button:active,
     text-align: center; /* Default for centering content within */
     position: relative; /* For potential absolute elements or starry backgrounds */
     overflow: hidden; /* Ensures content stays within bounds if we add pseudo-elements for effects */
+    box-sizing: border-box; /* <-- Add this line */
 }
 
 /* Optional: Subtle starry background for the footer */
