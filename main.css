@@ -635,7 +635,7 @@ button:active,
 #stats-for-nerds strong { color: var(--text-primary); }
 
 
-/* --- Temperament Sorter Styles (Planetary Alignment Sorter) --- */
+/* --- Temperament Sorter Styles--- */
 .temperament-sorter {
     border: 1px solid var(--border-color-medium);
     background-color: rgba(16, 20, 44, 0.7); /* Semi-transparent dark bg */
