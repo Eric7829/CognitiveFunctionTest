@@ -1,84 +1,98 @@
-# HSP3U Project: Jungian Cognitive Function Estimator
+# Cosmic Mindscape: A Jungian Cognitive Function Estimator
 
-This project, developed for my Grade 11 Introduction to Anthropology, Psychology, and Sociology (HSP3U) class, is a web-based tool designed to estimate an individual's personality type based on concepts derived from Carl Jung's theory of cognitive functions, adapted into frameworks like the Myers-Briggs Type Indicator (MBTI) and Keirsey Temperaments.
+Welcome to the Cosmic Mindscape! This project is a personality assessment tool designed to estimate your psychological type based on Carl Jung's theory of cognitive functions, as further developed by Katharine Briggs and Isabel Myers into the 16 Myers-Jung personality types.
 
-**Disclaimer:** This tool is a student project intended for educational exploration within the HSP3U curriculum. It is a simplified model of complex psychological theories and should be used for self-reflection and discussion, not as a definitive psychological assessment. Personality is complex and cannot be fully captured by any single test.
+## Project Origin & Purpose
 
-## How to Use
+This "Cosmic Mindscape Estimator" began as a Grade 11 Independent Study Project (ISP) in HSP3U (Introduction to Anthropology, Psychology, and Sociology). It was born out of a critical observation: many widely used personality assessments in educational settings (such as those found on platforms like MyBlueprint, often mirroring the 16Personalities.com model) lack a strong theoretical grounding in Jungian cognitive functions. Instead, they often rely on mapping broad personality traits to MBTI-like labels, potentially leading to inaccurate self-perceptions and misguided educational or career guidance for students.
 
-1.  Open the `index.html` file in your web browser.
-2.  Read the introductory text and instructions carefully.
-3.  Answer all 45 questions across the different sections:
-    *   **Function Preferences:** Rate your agreement with statements on a 1-7 Likert scale.
-    *   **Attitude Preferences:** Choose the option in each pair that best reflects your preference regarding the introverted or extraverted expression of certain functions.
-    *   **General Preferences (Axis):** Choose the option in each pair that best reflects your general preference on core cognitive "axes" (like Thinking vs. Feeling).
-    *   **Temperament Preferences:** Click to sort the descriptions to rank them from MOST to LEAST like you.
-    *   **Overall Orientation:** Choose the option in each pair that best reflects your general Introversion/Extraversion preference.
-4.  As you answer questions, the progress bar at the top will update.
-5.  Once all questions are answered, click the "Calculate My Type" button.
-6.  Your estimated top 3 personality types, along with supporting details, will appear below the form.
+The primary goal of this project is to:
 
-## Behind the Scenes: How it Works
+1.  Provide a **more theoretically sound and transparent** personality assessment experience based on Jungian cognitive functions.
+2.  Offer an **educational tool** that helps users understand the underlying principles of their cognitive preferences.
+3.  Serve as a **demonstration and potential alternative** to less accurate, trait-based assessments currently prevalent in some educational systems.
+4.  Explore the **predictive potential of cognitive functions** in relation to educational philosophy preferences, as investigated in the original ISP research.
 
-The tool processes your answers through several steps to arrive at a type estimation:
+This entire website, including the test, scoring algorithm, theory explanations, and type descriptions, was developed as part of this research.
 
-1.  **Calculating Raw Function Scores (Q1-24):**
-    *   Your responses to the 24 Likert scale questions are averaged for each of the eight cognitive functions (Si, Se, Ni, Ne, Ti, Te, Fi, Fe).
-    *   Some questions are "reverse-scored," meaning a high agreement score indicates *low* preference for that function and vice-versa (as noted in the HTML comments). This helps balance the questions.
-    *   This provides a "raw score" or baseline preference level for each function.
+## Core Theory: Jungian Cognitive Functions & Myers-Jung Types
 
-2.  **Modeling Function Suppression:**
-    *   Based on Jung's idea that dominant functions suppress weaker, opposing functions, the system applies a mathematical model (specifically, a smooth sigmoid function) to the raw function scores.
-    *   If one function scores significantly higher than others, it acts as a "dominant" function, and the scores of other functions (especially those mathematically "opposite" or lower in a theoretical stack) are proportionally reduced (suppressed).
-    *   This isn't a simple "off" switch; the degree of suppression is gradual, aiming to reflect the nuanced nature of function development.
+This assessment is rooted in the work of:
 
-3.  **Determining Attitude & Binary Preferences (Q25-40 & Q43-45):**
-    *   For the binary choice questions related to Function Attitude Pairs (like Ti/Te, Fi/Fe) and General Axes (like Ti_Fe, Si_Ne), the tool simply counts which option you chose more often within each set. This determines your preferred "side" or orientation for that aspect.
-    *   Similarly, the three I/E questions are tallied to determine your overall leaning towards Introversion or Extraversion.
+*   **Carl Jung:** A Swiss psychiatrist and psychoanalyst who founded analytical psychology. Jung introduced the concepts of introversion and extraversion as fundamental attitudes and identified four primary psychological functions:
+    *   **Sensing (S)** & **iNtuition (N)** (Perceiving functions - how we gather information)
+    *   **Thinking (T)** & **Feeling (F)** (Judging functions - how we make decisions)
+    Each of these can be primarily directed inward (Introverted - i) or outward (Extraverted - e), resulting in 8 cognitive functions (e.g., Introverted Thinking - Ti, Extraverted Sensing - Se).
+*   **Katharine Cook Briggs & Isabel Briggs Myers:** A mother-daughter duo who built upon Jung's work to create the Myers-Briggs Type Indicator® (MBTI®). They developed the concept of a "function stack" (a hierarchy of four primary cognitive functions: Dominant, Auxiliary, Tertiary, and Inferior) for each of the 16 personality types.
 
-4.  **Scoring Temperament (Q41-42):**
-    *   For the temperament sorting questions, points are assigned based on the rank you give to each temperament description (e.g., MOST = 3 points, 2nd = 1.5, 3rd = 0, LEAST = -1.5).
-    *   These scores accumulate for each of the four Keirsey temperaments (SP, SJ, NT, NF).
+This test attempts to estimate your preferences for these 8 functions and, based on their dynamic interplay, suggest your most likely 16-type Myers-Jung profile.
 
-5.  **Calculating Individual Type Scores:**
-    *   The tool knows the theoretical function stack for each of the 16 MBTI types (e.g., INTP = Ti, Ne, Si, Fe).
-    *   For each of the 16 types, a composite score is calculated based on how well your personal results match that type's profile:
-        *   **Function Stack Match:** The scores of the functions in the type's stack (using the *suppressed* function scores) are weighted heavily, with higher weight given to the dominant and auxiliary functions.
-        *   **Function Hierarchy Penalties:** The system checks if your function scores align with the typical hierarchy of a type's stack. For instance, if your score for a type's tertiary function is much higher than its dominant function, a penalty is applied to that type's score. This models the idea that functions develop in a certain order and balance.
-        *   **Attitude Preference Boost:** If the attitude of a type's dominant or auxiliary function matches your preferred attitude for that function pair (from Step 3), the type's score gets a boost.
-        *   **Binary Axis Boost:** If a type's dominant or auxiliary function aligns with your preference on the corresponding axis questions, the type's score gets a boost.
-        *   **Temperament Boost/Penalty:** Types belonging to your higher-ranked temperaments receive a significant boost, while those in lower-ranked temperaments receive a penalty, reflecting your core values/approach preferences.
-        *   **I/E Match Boost:** If a type's overall orientation (Introvert or Extravert) matches your overall I/E preference count (from Step 3), the type's score gets a boost.
-    *   The final score for each type is a combination of these factors, designed to reward types that show a consistent pattern across the different question types.
+## How the Scoring Algorithm Works (A Glimpse Under the Hood)
 
-6.  **Ranking and Display:**
-    *   All 16 types are ranked from highest score to lowest score.
-    *   The top 3 types are displayed as the primary result.
-    *   A "Details (for nerds only)" section shows the raw function scores, counts for attitude/binary/I/E questions, and the temperament sorting order, allowing for deeper analysis of the results.
+The personality type estimation is not a simple tally. The `score_calculator.js` employs a multi-step algorithm:
 
-## Strengths of This Approach
+1.  **Raw Function Scores:** Initial scores for each of the 8 cognitive functions are derived from your responses to Likert-scale questions.
+2.  **Attitude Preference Integration:** Your choices in binary questions (e.g., preferring Ni over Ne) directly influence the scores, transferring some "weight" from the less-preferred to the more-preferred function within a pair.
+3.  **Intra-Pair Suppression:** The algorithm models how a strong preference for one function in a related pair (e.g., Te vs. Fe, or Ti vs. Fi) can "suppress" or overshadow its counterpart, creating a clearer differentiation.
+4.  **Global Suppression:** Functions scoring significantly lower than your highest-scoring function(s) have their influence gently reduced using a sigmoid function. This helps to highlight your most prominent cognitive preferences.
+5.  **Temperament & I/E Boosts:** Your responses to temperament sorting questions (if included in the version you took) and Introversion/Extraversion preference questions provide boosts to types that align with these broader patterns. Based on David Keirsey's temperament theory.
+6.  **Function Stack Matching:** Finally, your adjusted function scores are compared against the theoretical "ideal" function stacks for all 16 Myers-Jung types. Each function's position (Dominant, Auxiliary, Tertiary, Inferior) is weighted. The type whose stack best matches your unique profile of function strengths is presented as your most likely result.
 
-*   **Directly Addresses Cognitive Functions:** Unlike tests solely based on the four MBTI dichotomies (E/I, S/N, T/F, J/P), this tool attempts to measure and model the eight core Jungian cognitive functions and their attitudes.
-*   **Models Suppression:** Incorporating function suppression is a key feature that aligns with a significant aspect of Jung's original theory on function development and interaction.
-*   **Incorporates Multiple Facets:** By including Likert scales for function strength, forced choices for attitude/axis preference, and sorting for temperament, the test gathers data from various angles to build a more nuanced profile.
-*   **Handles Ambiguity:** The scoring system allows for inconsistent or moderate answers without simply forcing a dichotomy, providing a probabilistic ranking rather than a rigid classification.
-*   **Emergent Patterns:** The scoring system is designed such that the natural groupings and relationships between types (like Socionics-ish quadras) tend to emerge from the calculations, even without being explicitly coded.
-*   **Concise:** While more detailed than a 4-question MBTI test, 45 questions offer a reasonable balance between depth and completion time, especially for a student project context.
-*   **Manual Typing Vibe:** The layered scoring and various question types are intended to mimic the process and considerations someone might use when trying to manually determine their type based on understanding the functions.
+This function-based, dynamic approach aims to provide a more nuanced estimation than simple dichotomous scoring.
+
+## Website Structure
+
+The Cosmic Mindscape website is organized as follows:
+
+*   **Personality Test (`index.html`):** The main entry point where you can take the assessment.
+    *   Powered by `app.js` (handles UI, question loading, progress) and `score_calculator.js` (calculates results).
+    *   Questions are sourced from `questions.json`.
+*   **Type Pages (`types/` directory):** Detailed descriptions for each of the 16 personality types (e.g., `types/istp.html`). Each page includes:
+    *   An introduction to the type.
+    *   A dynamic cognitive function carousel explaining its dominant, auxiliary, tertiary, and inferior functions.
+    *   Strengths, challenges, relationship insights, career paths, work habits, and learning strengths.
+*   **Resource Pages (`resources/` directory):**
+    *   **Theory (`resources/theory.html`):** An in-depth explanation of Jungian cognitive functions, the 16 types, function stacks, and how this test differs from others like 16Personalities.com.
+    *   **History (`resources/history.html`):** A brief overview of the development of Jungian typology and the MBTI.
+    *   **Special Thanks (`resources/special_thanks.html`):** Acknowledgments.
+
+## How to Use This Website
+
+1.  **Take the Test:** Start at `index.html`. Answer all questions thoughtfully.
+2.  **Review Your Results:** The results page will show your estimated type and a breakdown of your function scores.
+3.  **Explore Your Type Page:** Click through to your estimated type's page for a detailed profile.
+4.  **Dive into the Theory:** Visit the `resources/theory.html` page to understand the concepts behind your results.
+5.  **Browse Other Types:** Curious about other personality constellations? Explore the "Types" menu.
+
+## Key Differentiators: Why This Test?
+
+This "Cosmic Mindscape Estimator" differs significantly from many popular online personality quizzes (like 16Personalities.com) because:
+
+*   **It's Function-Based:** It attempts to measure your preference for Jung's 8 cognitive functions and model their hierarchy, not just score you on four behavioral dichotomies derived from trait theory.
+*   **Theoretically Grounded:** The questions and scoring are designed with Jungian and Myers-Briggs theory in mind.
+*   **Transparent:** We aim to explain the underlying theory and scoring logic.
+*   **Educational Focus:** The goal is genuine self-understanding and learning about psychological type, not just a label.
+*   **Ethically Developed:** This is a student-led research project offered freely, without the commercial motivations or misleading disclaimers found in some other platforms.
+
+Preliminary empirical research (part of the original ISP) showed this instrument's type distribution aligns more closely with established Canadian MBTI base rates than those derived from 16Personalities.com results, and that function preferences derived from this model correlate with educational philosophy preferences.
 
 ## Limitations
 
-*   **Self-Report Bias:** Like any self-report questionnaire, the accuracy depends heavily on the individual's self-awareness and honesty in answering the questions.
-*   **Simplified Model:** Psychological reality is far more complex than this model can capture. It simplifies Jungian theory and doesn't account for factors like environment, development stage, trauma, etc.
-*   **Parameter Values:** The specific weights, boost values, and suppression parameters used in the scoring algorithm were determined through iterative testing and tuning (pilot testing), and while aiming for accuracy based on observed patterns, they are ultimately somewhat arbitrary design choices of this specific model.
-*   **Question Depth:** Having only 3 Likert questions per function provides a limited sample size for measuring the strength of each function. The binary questions and temperament sorting are included to help compensate for this brevity.
-*   **Student Project Scope:** This is a learning project. It is not a professionally validated psychological instrument.
+*   **Student Project:** This tool was developed by a Grade 11 student as part of an Independent Study Project. While based on extensive research, it has not undergone formal, large-scale psychometric validation by professional psychometricians.
+*   **Self-Report Nature:** All personality assessments based on self-report are subject to individual biases and levels of self-awareness.
+*   **Estimation, Not Diagnosis:** The results provide an *estimation* of your likely Myers-Jung type. It is a tool for exploration, not a definitive psychological diagnosis.
 
-## Technologies Used
+## Future Work
 
-*   **HTML:** Structures the survey form and result display.
-*   **CSS:** Styles the layout, provides visual feedback for selections, implements the circular Likert/Binary options, and styles the sticky progress bar and temperament sorter.
-*   **JavaScript:** Handles client-side logic including question randomization (for Likert), processing form submissions, calculating scores based on the described algorithm, implementing the temperament sorting functionality, managing the progress bar, and displaying the results dynamically.
+This project is a continuous work in progress. Potential future enhancements include:
+
+*   Further refinement of questions and the scoring algorithm based on more data.
+*   Expanded type descriptions and resources.
+*   Perhaps more interactive visualizations of function dynamics.
+
+## Contact & Feedback
+
+Your feedback is valuable! If you have any questions, suggestions, or encounter any issues, please feel free to reach out.
+Email me at ericzhao8008@gmail.com 
 
 ---
-
