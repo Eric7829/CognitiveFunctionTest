@@ -455,7 +455,7 @@ body {
         display: block; /* Show TOC */
     }
     body.body-has-toc .page-wrapper {
-        margin-left: calc(230px + 50px); /* TOC width (230px) + NEW gap (240px) */
+        margin-left: calc(230px + 120px); /* TOC width (230px) + NEW gap (100px) */
     }
 }
 
