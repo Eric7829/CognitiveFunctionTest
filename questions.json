@@ -57,7 +57,7 @@
         {
           "id": "likert_ti_q2",
           "name": "Ti_Q2",
-          "text": "It's very important to me that my ideas and beliefs form a consistent internal logical system.",
+          "text": "I disassociate myself from all biases and emotions in my thinking.",
           "functionTarget": "Ti",
           "reverseScored": false
         },
